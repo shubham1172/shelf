@@ -1,11 +1,19 @@
 var express = require('express');
+var path = require('path');
 var app = express();
 
-//your routes here
+//default route
 app.get('/', function (req, res) {
-    res.send("Hello, World! <br/> This is a test app by shubhamsharma1172@gmail.com");
+    res.sendFile(path.join(__dirname, './public/html/index.html'));
 });
-
+//js
+app.get('/scripts.js', function (req, res) {
+    res.sendFile(path.join(__dirname, './public/js/scripts.js'));
+});
+//css
+app.get('/styles.css', function (req, res) {
+    res.sendFile(path.join(__dirname, './public/css/styles.css'));
+});
 app.listen(8080, function () {
   console.log('Example app listening on port 8080!');
 });

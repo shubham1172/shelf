@@ -1,0 +1,16 @@
+{
+  "name": "home-automation",
+  "version": "1.0.0",
+  "author": "Shubham",
+  "license": "self",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "express-session": "*",
+    "body-parser": "*",
+    "jquery": "*",
+    "pg-promise": "*",
+    "rpi-gpio": "*",
+    "async": "*"
+  }
+}
