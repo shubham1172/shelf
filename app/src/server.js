@@ -15,5 +15,5 @@ app.get('/styles.css', function (req, res) {
     res.sendFile(path.join(__dirname, './public/css/styles.css'));
 });
 app.listen(8080, function () {
-  console.log('Example app listening on port 8080!');
+  console.log('Web app started on 8080!');
 });
