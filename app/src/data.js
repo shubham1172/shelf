@@ -3,8 +3,19 @@
  *
  * Makes requests to Hasura's data api
  */
+
+/**
+ * Get book detail by id
+ */
 function getBook(id, callback){
   callback("test");
 }
 
-module.exports = {getBook};
+/**
+ * Get all books sorted personally
+ */
+function getBooks(callback){
+  callback("test-books");
+}
+
+module.exports = {getBook, getBooks};
