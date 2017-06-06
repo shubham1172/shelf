@@ -9,6 +9,8 @@
   "license": "semicolon labs",
   "dependencies": {
     "express": "^4.14.0",
-    "path": "*"
+    "path": "*",
+    "morgan": "*",
+    "body-parser": "*"
   }
 }

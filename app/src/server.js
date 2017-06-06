@@ -4,6 +4,7 @@
 
 //Include modules
 var express = require('express');
+var path = require('path');
 var morgan = require('morgan'); //logging information
 var router = require('./router.js'); //send traffic to this router
 var bodyParser = require('body-parser');

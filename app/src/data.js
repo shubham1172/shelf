@@ -6,3 +6,5 @@
 function getBook(id, callback){
   callback("test");
 }
+
+module.exports = {getBook};
