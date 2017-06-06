@@ -1,19 +1,21 @@
-var express = require('express');
-var path = require('path');
-var app = express();
+/**
+ * @author: Shubham Sharma
+*/
 
-//default route
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, './public/html/index.html'));
-});
-//js
-app.get('/scripts.js', function (req, res) {
-    res.sendFile(path.join(__dirname, './public/js/scripts.js'));
-});
-//css
-app.get('/styles.css', function (req, res) {
-    res.sendFile(path.join(__dirname, './public/css/styles.css'));
-});
+//Include modules
+var express = require('express');
+var morgan = require('morgan'); //logging information
+var router = require('./router.js'); //send traffic to this router
+var bodyParser = require('body-parser');
+
+//DEFINE APP
+var app = express();
+app.use(morgan('combined'));
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/', router);
+
+//START APP
 app.listen(8080, function () {
-  console.log('Web app started on 8080!');
+  console.log('Shelf started on 8080!');
 });
