@@ -18,4 +18,4 @@ function register(username, password, email, mobile, res){
     res.status(200).send("test-register");
 }
 
-module.exports = {login, logout}
+module.exports = {login, logout, register}
