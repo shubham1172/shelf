@@ -16,7 +16,12 @@ app.use(bodyParser.json({limit: '5mb'}));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', router);
 
+//domain
+var domain = "c100.hasura.me";
+
 //START APP
 app.listen(8080, function () {
   console.log('Shelf started on 8080!');
 });
+
+module.exports = {domain: domain};

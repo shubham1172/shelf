@@ -12,29 +12,26 @@ var router = express.Router();
 /**
  * Authorization requests
 */
+
 //login
 router.post('/login', function(req, res){
-  //send the res obj to the auth file for further responses
-  if(req.body.username&&req.body.password)
-    auth.login(req.body.username, req.body.password, res);
-  else
-    res.status(400).send("Missing username/password");
+  auth.login(req, res);
 });
 
 //logout
 router.get('/logout', function(req, res){
-  auth.logout(res);
+  auth.logout(req, res);
 });
 
 //register
 router.post('/register', function(req, res){
-  //check for VITSTUDENT handle
-  if(req.body.username&&req.body.password&&req.body.email&&req.body.mobile)
-    auth.register(req.body.username, req.body.password, req.body.email, req.body.mobile, res);
-  else
-    res.status(400).send("Missing parameters. Ref doc for more.");
+  auth.register(req, res);
 });
 
+//info
+router.get('/user-info', function(req, res){
+  auth.getInfo(req, res);
+});
 
 /**
  * Data requests
