@@ -5,7 +5,7 @@
  */
 var server = require("./server.js");
 var domain = "auth." + server.domain;
-var http = require("http");
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 function login(req, res){
    if(req.body&&req.body.username&&req.body.password){
@@ -14,24 +14,21 @@ function login(req, res){
         "username": req.body.username,
         "password": req.body.password
       };
-      var options = {
-        host: domain,
-        path: '/login',
-        method: '/POST',
-        headers: {'Content-Type': 'application/json'}
-      };
-      var rq = http.request(options, function(rs){
-        var received = '';
-        rs.on('data', function(chunk){
-          received+=chunk;
-        });
-        rs.on('end', function(){
-          console.log(JSON.parse(received));
-        });
-      });
-      rq.write(toSend);
-      rq.end();
-
+      var loginXHR = new XMLHttpRequest();
+        loginXHR.onload = function(){
+            if(loginXHR.readystate === XMLHttpRequest.DONE){
+                if(loginXHR.status==200){
+                    //do something
+                    res.status(200).send(loginXHR.responseText);
+                }else{
+                    console.log(loginXHR.responseText);
+                    res.status(400).send("Error!");
+                }
+            }
+        }
+        loginXHR.open("POST",domain+'/login');
+        loginXHR.setRequestHeader("Content-Type", "application/json");
+        loginXHR.send(JSON.stringify(toSend));
    }else
       res.status(400).send("Missing parameters! Refer to docs for more.");
  }

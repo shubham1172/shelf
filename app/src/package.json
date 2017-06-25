@@ -11,6 +11,7 @@
     "express": "^4.14.0",
     "path": "*",
     "morgan": "*",
-    "body-parser": "*"
+    "body-parser": "*",
+    "xmlhttprequest": "*"
   }
 }
