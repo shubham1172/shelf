@@ -15,14 +15,14 @@ function login(req, res){
         "password": req.body.password
       };
       var loginXHR = new XMLHttpRequest();
-        loginXHR.onload = function(){
-            if(loginXHR.readystate === XMLHttpRequest.DONE){
+        loginXHR.onreadystatechange = function(){
+            if(loginXHR.readyState == XMLHttpRequest.DONE){
                 if(loginXHR.status==200){
                     //do something
                     res.status(200).send(loginXHR.responseText);
                 }else{
                     console.log(loginXHR.responseText);
-                    res.status(400).send("Error!");
+                    res.status(500).send("Error!");
                 }
             }
         }
