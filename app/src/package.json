@@ -12,6 +12,7 @@
     "path": "*",
     "morgan": "*",
     "body-parser": "*",
-    "xmlhttprequest": "*"
+    "request": "*",
+    "express-session": "*"
   }
 }

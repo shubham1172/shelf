@@ -3,9 +3,9 @@
  *
  * Makes requests to Hasura's auth api
  */
-var server = require("./server.js");
-var domain = "auth." + server.domain;
-var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+var config = require("./config.js");
+var domain = "http://auth." + config.DOMAIN;
+var request = require('request');
 
 function login(req, res){
    if(req.body&&req.body.username&&req.body.password){
@@ -14,31 +14,66 @@ function login(req, res){
         "username": req.body.username,
         "password": req.body.password
       };
-      var loginXHR = new XMLHttpRequest();
-        loginXHR.onreadystatechange = function(){
-            if(loginXHR.readyState == XMLHttpRequest.DONE){
-                if(loginXHR.status==200){
-                    //do something
-                    res.status(200).send(loginXHR.responseText);
-                }else{
-                    console.log(loginXHR.responseText);
-                    res.status(500).send("Error!");
-                }
-            }
+      var options = {
+        method: 'POST',
+        uri: domain+'/login',
+        json: true,
+        body: toSend
+      }
+      request(options, function(error, response, body){
+        if(error){
+          console.log(error);
+          res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+        }else{
+          if(body.auth_token){
+            console.log("Logged in: " + body.auth_token);
+            req.session.auth = {token: body.auth_token}; //added cookie
+            res.status(config.HTTP_CODES.OK).send("Logged in!");
+          }else{
+            res.status(config.HTTP_CODES.FORBIDDEN).send("Invalid credentials!");
+          }
         }
-        loginXHR.open("POST",domain+'/login');
-        loginXHR.setRequestHeader("Content-Type", "application/json");
-        loginXHR.send(JSON.stringify(toSend));
+      });
    }else
-      res.status(400).send("Missing parameters! Refer to docs for more.");
+      res.status(config.HTTP_CODES.BAD_REQUEST).send("Missing parameters! Refer to docs for more.");
  }
 
-function logout(res){
-   res.status(200).send("test-logout");
- }
+function logout(req, res){
+    if(req.session&&req.session.auth&&req.session.auth.token){
+      delete req.session.auth;
+      res.status(config.HTTP_CODES.OK).send("Logged out!");
+    }else{
+      res.status(config.HTTP_CODES.FORBIDDEN).send("Please login first");
+    }
+}
 
 function register(username, password, email, mobile, res){
     res.status(200).send("test-register");
 }
 
-module.exports = {login, logout, register}
+function getInfo(req, res){
+  var options = {
+    method: 'GET',
+    uri: domain+'/user/account/info',
+    headers: {
+      'Authorization': 'Bearer '+req.session.auth.token,
+      'Content-Type': 'application/json'
+    }
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+    }else{
+      body = JSON.parse(body);
+      var toSend = {
+        "username": body.username,
+        "mobile": body.mobile,
+        "email": body.email
+      }
+      res.status(config.HTTP_CODES.OK).send(toSend);
+    }
+  });
+}
+
+module.exports = {login, logout, register, getInfo};
