@@ -1,0 +1,88 @@
+/**
+ * @author: Shubham Sharma
+ *
+ * This file manages all database transactions for auth
+ */
+var config = require('./../config.js');
+var domain = "http://data." + config.DOMAIN;
+var request = require('request');
+
+
+//collects user information from database
+function getInfo(id, token, callback){
+  var query = {
+    "type": "select",
+    "args":{
+        "table": "user",
+        "columns": ["id", "name", "year", "stream_id", "college_id"],
+        "where": {"id": id}
+    }
+  }
+  var options = {
+    method: 'POST',
+    uri: domain+'/v1/query',
+    headers: {
+      'Authorization': 'Bearer '+token,
+      'Content-Type': 'application/json'
+    },
+    json: true,
+    body: query
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      callback("Error");
+    }else{
+      callback(body[0]);
+    }
+  });
+}
+
+//Checks if user holds an account in our database
+function checkEligible(token, callback){
+  var optionsID = {
+    method: 'GET',
+    uri: "http://auth." + config.DOMAIN + "/user/account/info",
+    json: true,
+    headers:{
+      'Authorization': 'Bearer ' + token
+    }
+  }
+  request(optionsID, function(error, response, body){
+    if(error){
+      callback("Error");
+    }else{
+      var id = body.hasura_id;
+      var query = {
+        "type": "count",
+        "args":{
+            "table": "user",
+            "where": {"id": id}
+        }
+      }
+      var options = {
+        method: 'POST',
+        uri: domain+'/v1/query',
+        headers: {
+          'Authorization': 'Bearer '+token,
+          'Content-Type': 'application/json'
+        },
+        json: true,
+        body: query
+      }
+      request(options, function(error_, response_, body_){
+        if(error_){
+          console.log(error_);
+          callback("Error");
+        }else{
+          if(body_.count==1)
+            callback(true);
+          else
+            callback(false);
+        }
+      });
+    }
+  });
+}
+
+module.exports = {getInfo: getInfo, checkEligible: checkEligible};

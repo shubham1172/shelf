@@ -5,8 +5,9 @@
 //Include modules
 var express = require('express');
 var path = require('path');
-var auth = require('./auth.js');
-var data = require('./data.js');
+var auth = require('./Authorization/auth.js');
+var util = require('./Authorization/utility.js'); //TODO: REMOVE
+var data = require('./Data/data.js');
 var router = express.Router();
 var config = require('./config.js');
 
@@ -33,6 +34,7 @@ router.post('/register', function(req, res){
 router.get('/user-info', function(req, res){
   auth.getInfo(req, res);
 });
+
 
 //Default routing
 router.get('/*', function(req, res){
