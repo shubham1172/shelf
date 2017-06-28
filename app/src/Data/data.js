@@ -77,4 +77,32 @@
      });
  }
 
-module.exports = {createUser: createUser, getStreams: getStreams};
+ /**
+  * Returns id and college name
+  */
+ function getColleges(req, res){
+   var query = {
+     "type": "select",
+     "args": {
+       "table" : "college",
+       "columns": ["id", "name"]
+     }
+   }
+   var options = {
+     method: "POST",
+     uri: domain + '/v1/query',
+     json: true,
+     headers: {
+       "Authorization": "Bearer " + req.session.auth.token
+     },
+     body: query
+     }
+     request(options, function(error, response, body){
+       if(error){
+         res.status(config.HTTP_CODES.SERVER_ERROR).send(error);
+       }else{
+         res.status(config.HTTP_CODES.OK).send(body);
+       }
+     });
+ }
+module.exports = {createUser: createUser, getStreams: getStreams, getColleges, getColleges};

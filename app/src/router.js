@@ -49,6 +49,10 @@ router.post('/register-user', function(req, res){
    data.getStreams(req, res);
  });
 
+ //get college details
+ router.get('/get-colleges', function(req, res){
+   data.getColleges(req, res);
+ });
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");
