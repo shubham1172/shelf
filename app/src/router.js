@@ -35,6 +35,19 @@ router.get('/user-info', function(req, res){
   auth.getInfo(req, res);
 });
 
+//add details (only used if SHELF user data is missing)
+router.post('/register-user', function(req, res){
+  auth.registerShelf(req, res);
+});
+
+/**
+ * Data requests
+ */
+
+ //get stream details
+ router.get('/get-streams', function(req, res){
+   data.getStreams(req, res);
+ });
 
 //Default routing
 router.get('/*', function(req, res){

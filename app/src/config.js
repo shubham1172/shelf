@@ -15,7 +15,5 @@
  config.HTTP_CODES = {OK: 200, BAD_REQUEST: 400, FORBIDDEN: 403, SERVER_ERROR: 500};
  //DOMAIN
  config.DOMAIN = "c100.hasura.me";
- //ELIGIBILITY
- config.ELIGIBLE = false;
- 
+
  module.exports = config; //export
