@@ -1,0 +1,48 @@
+body{
+    background: #f2f2f2;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+}
+
+#index-header{
+    color: #424242;
+    font-size: 64px;
+    padding-top: 48px;
+    padding-left: 30px;
+}
+
+#signin-box{
+    width: 300px;
+    height: 275px;
+    padding: 5% 5% 5% 5%;
+    background: #ffffff;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#signin-header{
+    font-size: 28px;
+}
+
+#signin-button{
+    background-color: blue;
+    display: inline-block;
+}
+
+#index-footer{
+    position:fixed;
+    bottom:10;
+    width: 100%;
+}
+
+#footer-index-text{
+        margin: 0 auto;
+        height: 50px;
+        width: 200px;
+        text-align: center;
+}
