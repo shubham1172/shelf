@@ -44,6 +44,13 @@ router.post('/register-user', function(req, res){
  * Data requests
  */
 
+//checks username is available or not
+//returns bool
+//query ?val=
+ router.get('/check-username', function(req, res){
+   data.checkUsername(req, res);
+ });
+
  //get stream details
  router.get('/get-streams', function(req, res){
    data.getStreams(req, res);

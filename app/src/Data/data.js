@@ -105,4 +105,47 @@
        }
      });
  }
-module.exports = {createUser: createUser, getStreams: getStreams, getColleges, getColleges};
+
+ /**
+ * Returns bool if username is available or not
+ */
+ function checkUsername(req, res){
+   if(req.query.val){
+       var username = req.query.val;
+       var query = {
+       "type": "select",
+       "args": {
+         "columns": ["username"],
+         "table" : {
+           "name": "hasura_auth_user",
+           "schema": "hauthy"
+         }
+       }
+      }
+      var options = {
+        method: "POST",
+        uri: domain + '/v1/query',
+        json: true,
+        headers: {
+          "Authorization": "Bearer " + process.env.TOKEN
+        },
+        body: query
+      }
+      request(options, function(error, response, body){
+          if(error){
+            res.status(config.HTTP_CODES.SERVER_ERROR).send(error);
+          }else{
+            var toSend = true;
+            for(var i=0;i<body.length;i++){
+              if(body[i].username==username)
+                toSend = false;
+            }
+            res.status(config.HTTP_CODES.OK).send(toSend);
+          }
+      });
+   }else{
+     res.status(config.HTTP_CODES.BAD_REQUEST).send("Invalid parameter. Follow /check-username?val=XXX")
+   }
+}
+module.exports = {createUser: createUser, getStreams: getStreams,
+   getColleges: getColleges, checkUsername: checkUsername};
