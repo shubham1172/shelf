@@ -64,7 +64,7 @@
      uri: domain + '/v1/query',
      json: true,
      headers: {
-       "Authorization": "Bearer " + req.session.auth.token
+       "Authorization": "Bearer " + process.env.TOKEN
      },
      body: query
      }
@@ -93,7 +93,7 @@
      uri: domain + '/v1/query',
      json: true,
      headers: {
-       "Authorization": "Bearer " + req.session.auth.token
+       "Authorization": "Bearer " + process.env.TOKEN
      },
      body: query
      }
