@@ -60,6 +60,7 @@ router.post('/register-user', function(req, res){
  router.get('/get-colleges', function(req, res){
    data.getColleges(req, res);
  });
+ 
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");

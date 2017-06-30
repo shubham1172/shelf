@@ -17,12 +17,18 @@
    /**
    * makes an insert request to user table
    */
+   //check who is making the request
+   var id = -1;
+   if(info.id)
+    id = info.id; //register app
+   else
+    id = req.session.auth.id; //after logging in for power users
    var query = {
      "type": "insert",
      "args": {
        "table": "user",
        "objects": [{
-         "id": req.session.auth.id,
+         "id": id,
          "name": info.name,
          "year": info.year,
          "stream_id": info.stream_id,
@@ -35,7 +41,7 @@
      uri: domain + '/v1/query',
      json: true,
      headers: {
-       'Authorization': 'Bearer ' + req.session.auth.token
+       'Authorization': 'Bearer ' + process.env.TOKEN
      },
      body: query
    }
@@ -147,5 +153,6 @@
      res.status(config.HTTP_CODES.BAD_REQUEST).send("Invalid parameter. Follow /check-username?val=XXX")
    }
 }
+
 module.exports = {createUser: createUser, getStreams: getStreams,
    getColleges: getColleges, checkUsername: checkUsername};
