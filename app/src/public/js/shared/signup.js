@@ -4,9 +4,7 @@
  */
 
  $(document).ready(function(){
-
-
-//Variables
+//variables
 var collegeId = {};
 var streamId = {};
 var name;
@@ -17,6 +15,7 @@ var email;
 var university;
 var password;
 var branch;
+
 //XHR for getting streams - returns stream name, stream_id, type
       var streamReq = new XMLHttpRequest();
       streamReq.onload = function(){
@@ -46,7 +45,6 @@ var branch;
       }
       streamReq.open('GET','http://localhost:8080/get-streams',true);
       streamReq.send(null);
-
 
 //XHR for getting colleges - returns college name and ID
        var collegeReq = new XMLHttpRequest();
@@ -78,7 +76,6 @@ var branch;
       collegeReq.open('GET','http://localhost:8080/get-colleges',true);
       collegeReq.send(null);
 
-
 //Handling username-entry 
  $('#username').on("keyup",function(){
           //code for empty username entry
@@ -107,8 +104,6 @@ var branch;
           }
 
       });
-
- 
 
 //Loading page for password. 
     $("#signup-form-part1-submit").click(function(){
@@ -149,13 +144,5 @@ var branch;
               signup.setRequestHeader('Content-Type', 'application/json');
               signup.send(JSON.stringify({name:name,username:username,year:year,stream_id:streamId[branch],college_id:collegeId[university],mobile:contact, password: password}));
         });
-  
     });
-
-
-
-
-
  });
- 
- 
