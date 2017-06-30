@@ -42,3 +42,29 @@ body{
         text-align: center;
 }
 
+#username{
+    border-color: green;
+}
+
+#signin-box{
+    width: 350px;
+    height: 500px;
+    padding: 5% 5% 5% 5%;
+    background: #ffffff;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#signin-header{
+    font-size: 28px;
+}
+
+#signin-button{
+    background-color: blue;
+    display: inline-block;
+}

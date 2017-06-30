@@ -16,7 +16,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-    <script  type="text/javascript" src="http://localhost:8080/js/shared/main.js"></script>
+    <script  type="text/javascript" src="http://localhost:8080/js/shared/signup.js"></script>
     <!--viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -24,7 +24,8 @@
 
 <body>
     <i class="material-icons" style="color: #424242; float: left; font-size: 64px; padding-top: 29px; padding-left: 30px;">book</i>
-    <p id="signup-header"> SHELF </p>for {University}
+    <p id="signup-header"> SHELF </p>for <span id="university">{University}</span>
+    <span id="signup-main">
     <div id="signup-box">
         <p id="signup-form-header"> Sign Up</p>
     <form action="#" id="signup-form">
@@ -34,26 +35,30 @@
         <label class="mdl-textfield__label" for="name">Name [First name & Surname]</label>
     </div>
 
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="username">
+        <label class="mdl-textfield__label" for="username" id="username-label">Username</label>
+    </div>
+
      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="email" id="email">
         <label class="mdl-textfield__label" for="email">Email</label>
     </div>
 
+     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="number" id="contact">
+        <label class="mdl-textfield__label" for="contact">Contact</label>
+    </div>
+
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input select-college" type="text" id="college">
-        <label class="mdl-textfield__label" for="stream">College</label>
+        <label class="mdl-textfield__label" for="college">College</label>
     </div>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input select-stream" type="text" id="stream">
         <label class="mdl-textfield__label" for="stream">Stream</label>
     </div><br>
-
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="number" id="contact">
-        <label class="mdl-textfield__label" for="contact">Contact</label>
-    </div>
-
 
 <div id="signup-year">
       <span style="color:blue">Year</span><br>
@@ -83,6 +88,7 @@
 </button>
 </form>
     </div>
+</span>
     <div id="index-footer"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
     Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
     </div>
