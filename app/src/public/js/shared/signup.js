@@ -133,14 +133,14 @@ var branch;
               var signup = new XMLHttpRequest();
               signup.onload = function(){
                   if(signup.readystate = XMLHttpRequest.DONE){
-                    if(signup.status === 200){
-                      $("signup-box").html("You have been logged in.");
-                    }else if(signup === 403){
+                    if(signup.status === 200||signup.status === 304){
+                      $("#signup-box").html("You have been signed up.");
+                    }else if(signup.status === 403){
                       console.log(signup.responseText);
                     }
                   }
-              }
-              signup.open('POST', 'http://localhost:8082/register', true);
+              } 
+              signup.open('POST', 'http://localhost:8080/register', true);
               signup.setRequestHeader('Content-Type', 'application/json');
               signup.send(JSON.stringify({name:name,username:username,year:year,stream_id:streamId[branch],college_id:collegeId[university],mobile:contact, password: password}));
         });
