@@ -13,8 +13,8 @@ function getInfo(id, token, callback){
   var query = {
     "type": "select",
     "args":{
-        "table": "user",
-        "columns": ["id", "name", "year", "stream_id", "college_id"],
+        "table": "userinfo",
+        "columns": ["id", "name", "year", "stream", "college"],
         "where": {"id": id}
     }
   }

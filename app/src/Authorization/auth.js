@@ -7,6 +7,7 @@ var config = require("./../config.js");
 var domain = "http://auth." + config.DOMAIN;
 var request = require('request');
 var util = require('./utility.js');
+var data = require('./../Data/data.js');
 
 /**
  * Login request
@@ -80,10 +81,10 @@ function register(req, res){
        * Register with HASURA and then SHELF
        */
        var query = {
-         "username": req.username,
-         "password": req.password,
-         "email": req.email,
-         "mobile": req.mobile
+         "username": req.body.username,
+         "password": req.body.password,
+         "email": req.body.email,
+         "mobile": req.body.mobile
        }
        var options = {
          method: "POST",
@@ -91,13 +92,15 @@ function register(req, res){
          json: true,
          body: query
        }
-       request(query, function(error, response, body){
+       request(options, function(error, response, body){
          if(error){
            console.log(error);
            res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
          }else{
            //add other columns in database
-           createUser(req, req.body, function(result){
+           req.body.id = body.hasura_id;
+           console.log(body);
+           data.createUser(req, req.body, function(result){
              if(result){
                res.status(config.HTTP_CODES.OK).send("Confirm your email to login!");
              }else{
@@ -152,14 +155,23 @@ function checkRegisterHasura(info){
   if(info.body&&info.body.username&&info.body.password&&info.body.email&&
     info.body.mobile){
     //further checking
-    if(info.body.username.length<5||info.body.username.length>15)
+    if(info.body.username.length<3||info.body.username.length>25){
+      console.log("username error");
       return false;
-    if(info.body.password.length<5||info.body.password.length>20)
+    }
+    if(info.body.password.length<8||info.body.password.length>50){
+      console.log("password error");
       return false;
-    if(info.body.mobile.toString().length!=10)
+    }
+    if(info.body.mobile.toString().length!=10){
+      console.log("mobile error");
       return false;
-  }else
+    }
+    return true;
+  }else{
+    console.log("missing param error");
     return false;
+  }
 }
 
 /**
@@ -167,11 +179,17 @@ function checkRegisterHasura(info){
  */
 function checkRegisterShelf(info){
   if(info.body&&info.body.name&&info.body.year&&info.body.stream_id&&info.body.college_id){
-    if(info.body.name.length<3||info.body.name.length>30)
+    if(info.body.name.length<3||info.body.name.length>30){
+      console.log("name error");
       return false;
-    var year = new Date().getYear();
-    if(info.body.year<(year-5)||info.body.year>year)
+    }
+    var year = new Date().getFullYear();
+    if(info.body.year<(year-5)||info.body.year>year){
+      console.log("year error");
+      console.log(year);
+      console.log(info.body.year);
       return false;
+    }
     return true;
   }else
     return false;
