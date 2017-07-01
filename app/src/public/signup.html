@@ -28,11 +28,11 @@
     <span id="signup-main">
     <div id="signup-box">
         <p id="signup-form-header"> Sign Up</p>
-    <form action="#" id="signup-form">
+    <form id="signup-form" autocomplete="off">
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" id="name">
-        <label class="mdl-textfield__label" for="name">Name [First name & Surname]</label>
+        <label class="mdl-textfield__label" for="name" id="name-label">Name [First name & Surname]</label>
     </div>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -46,7 +46,7 @@
     </div>
 
      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="number" id="contact">
+        <input class="mdl-textfield__input" type="tel" pattern="^\d{10}$" id="contact">
         <label class="mdl-textfield__label" for="contact">Contact</label>
     </div>
 
