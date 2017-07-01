@@ -3,6 +3,7 @@
  *
  * Makes requests to Hasura's auth api
  */
+
 var config = require("./../config.js");
 var domain = "http://auth." + config.DOMAIN;
 var request = require('request');

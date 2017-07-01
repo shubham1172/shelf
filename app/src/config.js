@@ -4,7 +4,6 @@
  */
 
  var config = {}; //configuration data
-
  //SETUP configuration
 
  //PORT NUMBER
@@ -16,5 +15,7 @@
  config.HTTP_CODES = {OK: 200, BAD_REQUEST: 400, FORBIDDEN: 403, SERVER_ERROR: 500};
  //DOMAIN
  config.DOMAIN = "c100.hasura.me";
+ //AUTH TOKEN
+ config.TOKEN = undefined;
 
  module.exports = config; //export
