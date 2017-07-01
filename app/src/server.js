@@ -10,6 +10,7 @@ var router = require('./router.js'); //send traffic to this router
 var bodyParser = require('body-parser');
 var session = require('express-session'); //session management
 var config = require('./config');
+var admin = require('./Authorization/admin.js');
 
 /**
  * Authenticates traffic before routing
@@ -46,4 +47,7 @@ app.use('/', router);
 //START APP
 app.listen(config.PORT_NUMBER, function () {
   console.log('Shelf started on ' + config.PORT_NUMBER);
+  admin.genToken(function(token){
+    config.TOKEN = token;
+  });
 });

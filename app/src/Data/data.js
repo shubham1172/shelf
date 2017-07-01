@@ -7,6 +7,7 @@
  var config = require("./../config.js");
  var domain = "http://data." + config.DOMAIN;
  var request = require('request');
+ var admin = require('./../Authorization/admin.js');
 
  /**
   * Creates a new user in the Hasura database
@@ -41,7 +42,7 @@
      uri: domain + '/v1/query',
      json: true,
      headers: {
-       'Authorization': 'Bearer ' + process.env.TOKEN
+       'Authorization': 'Bearer ' + admin.getToken()
      },
      body: query
    }
@@ -70,7 +71,7 @@
      uri: domain + '/v1/query',
      json: true,
      headers: {
-       "Authorization": "Bearer " + process.env.TOKEN
+       "Authorization": "Bearer " + admin.getToken()
      },
      body: query
      }
@@ -99,7 +100,7 @@
      uri: domain + '/v1/query',
      json: true,
      headers: {
-       "Authorization": "Bearer " + process.env.TOKEN
+       "Authorization": "Bearer " + admin.getToken()
      },
      body: query
      }
@@ -133,7 +134,7 @@
         uri: domain + '/v1/query',
         json: true,
         headers: {
-          "Authorization": "Bearer " + process.env.TOKEN
+          "Authorization": "Bearer " + admin.getToken()
         },
         body: query
       }
