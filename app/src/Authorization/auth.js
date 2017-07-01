@@ -183,11 +183,8 @@ function checkRegisterShelf(info){
       console.log("name error");
       return false;
     }
-    var year = new Date().getFullYear();
-    if(info.body.year<(year-5)||info.body.year>year){
+    if(info.body.year<1||info.body.year>5){
       console.log("year error");
-      console.log(year);
-      console.log(info.body.year);
       return false;
     }
     return true;
