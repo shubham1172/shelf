@@ -97,7 +97,7 @@ function register(req, res){
          if(error){
            console.log(error);
            res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
-         }else{
+         }else if(body.hasura_id){
            //add other columns in database
            req.body.id = body.hasura_id;
            console.log(body);
@@ -108,6 +108,10 @@ function register(req, res){
                res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
              }
            });
+         }else{
+           res.status(config.HTTP_CODES.FORBIDDEN).send({
+             code: 04,
+             message: "User already exists"});
          }
        });
     }else{
