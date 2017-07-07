@@ -1,0 +1,63 @@
+<!--@author: Amey Parundekar-->
+<!--SIGN IN PAGE-->
+<html>
+<head>
+    <title>SHELF | Login</title>
+
+<!--CSS-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<link rel="stylesheet" href="http://localhost:8080/css/index.css">
+<link rel="stylesheet" href="http://localhost:8080/css/user-console.css">
+
+<!--javascript-->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<script  type="text/javascript" src="http://localhost:8080/js/shared/signin.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body ng-app="user-console-app">
+    <div id="load">
+    </div>
+        <span id = "contents" ng-controller="userConsole">
+        <i class="material-icons" style="color: #424242; float: left; font-size: 64px; padding-top: 29px; padding-left: 30px;">book</i>
+        <p id="index-header"> SHELF  </p> for <span id="university">{{info.college}}</span> 
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#primary-info" class="mdl-tabs__tab is-active">Primary Information</a>
+                <a href="#sell" class="mdl-tabs__tab">Sell Books</a>
+                <a href="#orders" class="mdl-tabs__tab">Your Orders</a>
+            </div>
+
+            <table class="mdl-tabs__panel is-active" id="primary-info">
+                <tr><td><h5 style="font-weight: bold">Personal Information</h5></td></tr>
+                <tr><td> NAME:</td><td><span class="p-menu">{{info.name}}</span></td></tr>
+                <tr><td> Email:</td><td><span class="p-menu">{{info.email}}</span></td></tr>
+                <tr><td>Contact:</td><td><span class="p-menu">{{info.mobile}}</span></td></tr>
+                <tr><td><h5 style="font-weight: bold">Academic Information</h5></td></tr>
+                <tr><td>College:</td><td><span class="p-menu">{{info.college}}</span></td></tr>
+                <tr><td>Stream:</td><td><span class="p-menu">{{info.stream}}</span></td></tr>
+                <tr><td>Year:</td><td><span class="p-menu">{{info.year}}</span><br></td></tr>
+            </table>
+            <div class="mdl-tabs__panel" id="sell">
+
+            </div>
+            <div class="mdl-tabs__panel" id="orders">
+            </div>
+    </div>
+
+    <footer id="index-footer"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
+    Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
+    </footer>
+    </span>
+
+    <!-- Module -->
+    <script src="http://localhost:8080/js/app.js"></script>
+
+    <!-- Controller -->
+    <script src="http://localhost:8080/js/controllers/userConsole.js"></script>
+</body>
+</html>

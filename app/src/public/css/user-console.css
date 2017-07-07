@@ -1,0 +1,21 @@
+#primary-info{
+    width: 350px;
+    height: 210px;
+    padding: 0% 5% 5% 5%;
+    background: #ffffff;
+    position: absolute;
+    top:50;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+/*.p-menu{
+     font-weight: bold;
+}*/
+
+#primary-info{
+    width: 500px;
+}
