@@ -19,8 +19,7 @@ document.onreadystatechange = function () {
 
 //Script running when document ready.
 $(document).ready(function(){
-
-    //Handling username-entry 
+//Handling username-entry 
  $('#username').on("keyup",function(){
           //code for empty username entry
           if($("#username").val().trim()==""){
@@ -31,7 +30,7 @@ $(document).ready(function(){
             var userReq = new XMLHttpRequest();
             userReq.onload = function(){
               if(userReq.readystate = XMLHttpRequest.DONE){
-                  if(userReq.status === 200){
+                  if(userReq.status === 200||userReq.status === 304){
                     if(userReq.responseText=='true'){
                       $("#username-label").html("No such user available! :(");
                     }else{
@@ -46,8 +45,7 @@ $(document).ready(function(){
          userReq.open('GET','http://localhost:8080/check-username?val='+username,true);
          userReq.send(null);
           }
-
-      });
+});
 
 //XHR for login - Log in the user 
     $("#signin-button").on("click",function(){

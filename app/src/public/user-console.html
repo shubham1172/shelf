@@ -10,12 +10,14 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <link rel="stylesheet" href="http://localhost:8080/css/index.css">
 <link rel="stylesheet" href="http://localhost:8080/css/user-console.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.0.0/nouislider.min.css" />
 
 <!--javascript-->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script  type="text/javascript" src="http://localhost:8080/js/shared/signin.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.0.0/nouislider.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -34,7 +36,7 @@
 
             <table class="mdl-tabs__panel is-active" id="primary-info">
                 <tr><td><h5 style="font-weight: bold">Personal Information</h5></td></tr>
-                <tr><td> NAME:</td><td><span class="p-menu">{{info.name}}</span></td></tr>
+                <tr><td> Name:</td><td><span class="p-menu">{{info.name}}</span></td></tr>
                 <tr><td> Email:</td><td><span class="p-menu">{{info.email}}</span></td></tr>
                 <tr><td>Contact:</td><td><span class="p-menu">{{info.mobile}}</span></td></tr>
                 <tr><td><h5 style="font-weight: bold">Academic Information</h5></td></tr>
@@ -43,17 +45,42 @@
                 <tr><td>Year:</td><td><span class="p-menu">{{info.year}}</span><br></td></tr>
             </table>
             <div class="mdl-tabs__panel" id="sell">
-
+                <div id="new-book-1">
+                    <form id="book-form" autocomplete="off">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input">
+                            <input class="mdl-textfield__input" type="text" id="book">
+                            <label class="mdl-textfield__label" for="name" id="book-label">Book</label>
+                        </div><br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input">
+                            <input class="mdl-textfield__input" type="text" id="author">
+                            <label class="mdl-textfield__label" for="name" id="author-label">Author </label>
+                        </div><br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input">
+                            <input class="mdl-textfield__input" type="text" id="publisher">
+                            <label class="mdl-textfield__label" for="name" id="publisher-label">Publisher </label>
+                        </div><br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input">
+                            <input class="mdl-textfield__input select-stream" type="text" id="stream">
+                            <label class="mdl-textfield__label" for="stream">Stream</label>
+                        </div><br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input2">
+                            <input class="mdl-textfield__input" type="number" id="price">
+                            <label class="mdl-textfield__label" for="name" id="price-label">Price </label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input2">
+                            <input class="mdl-textfield__input" type="year" id="year" pattern="^[12][0-9]{3}$">
+                            <label class="mdl-textfield__label" for="name" id="price-label">Year </label>
+                        </div>
+                    </form> 
+                </div>     
             </div>
             <div class="mdl-tabs__panel" id="orders">
             </div>
-    </div>
-
-    <footer id="index-footer"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
+    </div>     
+    </span>
+    <footer id="footer"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
     Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
     </footer>
-    </span>
-
     <!-- Module -->
     <script src="http://localhost:8080/js/app.js"></script>
 
