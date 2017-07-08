@@ -1,6 +1,6 @@
 /**
  * @author: Amey Parundekar
- * signup handler
+ * book sell handler
  */
 
 //Preloading animation.
@@ -55,6 +55,7 @@ var img3;
         reader.readAsDataURL(event.target.files[0]);
     };
 
+//XHR for posting book
     $("#post-book").on("click",function(){
         var postBook = new XMLHttpRequest();
         postBook.onload = function(){
