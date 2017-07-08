@@ -31,9 +31,9 @@ body {
 }
 
 #sell{
-    width: 95%;
+    width: 99%;
     height: 480px;
-    padding: 5% 5% 5% 5%;
+    padding: 3% 5% 5% 5%;
     background: #ffffff;
     left: 0;
     right: 0;
@@ -61,4 +61,27 @@ body {
   background-color: #313235;
   color: #f2f2f2;
   text-align: center;
+}
+
+#new-book-1{
+  height: 480px;
+  width: 50%;
+  float: left;
+}
+
+#new-book-2{
+  height: 480px;
+  width: 50%;
+  float: right;
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload{
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 37px;
 }

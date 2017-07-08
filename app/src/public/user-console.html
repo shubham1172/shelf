@@ -10,14 +10,11 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <link rel="stylesheet" href="http://localhost:8080/css/index.css">
 <link rel="stylesheet" href="http://localhost:8080/css/user-console.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.0.0/nouislider.min.css" />
-
 <!--javascript-->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<script  type="text/javascript" src="http://localhost:8080/js/shared/signin.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.0.0/nouislider.min.js"></script>
+<script  type="text/javascript" src="http://localhost:8080/js/shared/sell.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -65,14 +62,46 @@
                         </div><br>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input2">
                             <input class="mdl-textfield__input" type="number" id="price">
-                            <label class="mdl-textfield__label" for="name" id="price-label">Price </label>
+                            <label class="mdl-textfield__label" for="price" id="price-label">Price </label>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input2">
                             <input class="mdl-textfield__input" type="year" id="year" pattern="^[12][0-9]{3}$">
-                            <label class="mdl-textfield__label" for="name" id="price-label">Year </label>
-                        </div>
+                            <label class="mdl-textfield__label" for="year" id="price-label">Year </label>
+                        </div><br><br>
+                        <span style="margin-left:30px;"> Choose condition of the book using slider.</span><br><br>
+                        <div class="book-input2" style="width:453px;margin-left:4px">
+                         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="5" value="3" tabindex="0" id="condition">
+                         </div>
                     </form> 
                 </div>     
+                <div id="new-book-2">
+                    <div class="mdl-textfield mdl-js-textfield" style="width:100%;">
+                        <textarea class="mdl-textfield__input" type="text" rows="6" maxrows="6" id="schools"></textarea>
+                        <label class="mdl-textfield__label" for="schools">Book discription.(Write what you feel about the book)</label>
+                    </div>
+
+                    <label for="file-upload-1" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> 
+                        Front Cover
+                    </label>
+                    <input id="file-upload-1" type="file" accept="image/*" onchange="loadFile1(event)" />
+
+                    <label for="file-upload-2" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> 
+                        Back Cover
+                    </label>
+                    <input id="file-upload-2" type="file" accept="image/*" onchange="loadFile2(event)" />
+
+                    <label for="file-upload-3" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> 
+                        Inside
+                    </label>
+                    <input id="file-upload-3" type="file" accept="image/*" onchange="loadFile3(event)" />
+                    <br>
+                    <img id="output1" width = "30%" height="30%"/>
+                    <img id="output2" width = "30%" height="30%"/>
+                    <img id="output3" width = "30%" height="30%"/>
+                </div>
             </div>
             <div class="mdl-tabs__panel" id="orders">
             </div>
