@@ -82,9 +82,9 @@ function register(req, res){
        * Register with HASURA and then SHELF
        */
        var query = {
-         "username": req.body.username,
-         "password": req.body.password,
-         "email": req.body.email,
+         "username": req.body.username.trim(),
+         "password": req.body.password.trim(),
+         "email": req.body.email.trim(),
          "mobile": req.body.mobile
        }
        var options = {
@@ -192,7 +192,11 @@ function checkRegisterShelf(info){
       console.log("year error");
       return false;
     }
-    return true;
+    data.checkStream(info.stream_id, function(isValid){
+      if(!isValid)
+        console.log("Stream error");
+      return isValid;
+    })
   }else
     return false;
 }

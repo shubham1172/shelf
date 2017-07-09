@@ -1,15 +1,17 @@
 /**
  * @author: Shubham Sharma
+ *
+ * Contains routing for the app
 */
 
 //Include modules
 var express = require('express');
 var path = require('path');
 var auth = require('./Authorization/auth.js');
-var util = require('./Authorization/utility.js'); //TODO: REMOVE
 var data = require('./Data/data.js');
 var router = express.Router();
 var config = require('./config.js');
+var book = require('./Data/book.js');
 
 /**
  * Authorization requests
@@ -60,7 +62,16 @@ router.post('/register-user', function(req, res){
  router.get('/get-colleges', function(req, res){
    data.getColleges(req, res);
  });
- 
+
+/**
+ * Book requests
+ */
+
+ //add book
+ router.post('/add-book', function(req, res){
+   book.addBook(req, res);
+ });
+
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");

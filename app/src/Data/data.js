@@ -30,7 +30,7 @@
        "table": "user",
        "objects": [{
          "id": id,
-         "name": info.name,
+         "name": info.name.trim(),
          "year": info.year,
          "stream_id": info.stream_id,
          "college_id": info.college_id
@@ -155,5 +155,34 @@
    }
 }
 
-module.exports = {createUser: createUser, getStreams: getStreams,
-   getColleges: getColleges, checkUsername: checkUsername};
+/**
+ * Checks if stream_id exists or not
+ */
+function checkStream(stream_id, callback){
+  var query = {
+    "type": "select",
+    "args": {
+      "table" : "stream",
+      "columns": ["name"],
+      "where": {"id": stream_id}
+    }
+  }
+  var options = {
+    method: "POST",
+    uri: domain + '/v1/query',
+    json: true,
+    headers: {
+      "Authorization": "Bearer " + admin.getToken()
+    },
+    body: query
+    }
+    request(options, function(error, response, body){
+      if(error||body.length!=1){
+        callback(false);
+      }else{
+          callback(true);
+      }
+    });
+}
+
+module.exports = {createUser, getStreams, getColleges, checkUsername, checkStream};

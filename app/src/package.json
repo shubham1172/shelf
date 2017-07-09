@@ -13,6 +13,7 @@
     "morgan": "*",
     "body-parser": "*",
     "request": "*",
-    "express-session": "*"
+    "express-session": "*",
+    "crypto": "*"
   }
 }
