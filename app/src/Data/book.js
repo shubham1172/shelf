@@ -16,7 +16,7 @@ var request = require("request");
  */
  function addBook(req, res){
    //Check and verify params
-   if(checkParamsBook(req.body){
+   if(checkParamsBook(req.body)){
      //add images
      util.uploadImages(req.body.image_1, req.body.image_2, req.body.image_3,
        function(photoID){
