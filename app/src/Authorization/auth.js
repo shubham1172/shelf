@@ -192,11 +192,12 @@ function checkRegisterShelf(info){
       console.log("year error");
       return false;
     }
-    data.checkStream(info.stream_id, function(isValid){
+    data.checkStream(info.body.stream_id, function(isValid){
       if(!isValid)
         console.log("Stream error");
       return isValid;
-    })
+    });
+    return true;
   }else
     return false;
 }
@@ -215,6 +216,7 @@ function checkRegisterShelf(info){
        }
      });
    }else{
+     console.log("Register shelf error");
      res.status(config.HTTP_CODES.FORBIDDEN).send({
        code: 02,
        message: "Parameter error. Read docs for more."});

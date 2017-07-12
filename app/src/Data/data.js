@@ -177,7 +177,11 @@ function checkStream(stream_id, callback){
     body: query
     }
     request(options, function(error, response, body){
-      if(error||body.length!=1){
+      if(error){
+        console.log(error);
+        callback(false);
+      }if(body.length!=1){
+        console.log(body);
         callback(false);
       }else{
           callback(true);
