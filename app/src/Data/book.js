@@ -10,13 +10,13 @@ var config = require("./../config.js");
 var request = require("request");
 
 /**
- * Add books to SHELF
- * Params required: name, author, publisher, condition_id, image_1,
- *                  image_2, image_3, price, year, stream_id, memo
- */
+* Add books to SHELF
+* Params required: name, author, publisher, condition_id, image_1,
+*                  image_2, image_3, price, year, stream_id, memo
+*/
  function addBook(req, res){
    //Check and verify params
-   if(checkParamsBook(req.body)){
+   if(checkParamsBook(req.body, 0)){ //caller 0 indicates addBook's call
      //add images
      util.uploadImages(req.body.image_1, req.body.image_2, req.body.image_3,
        function(photoID){
@@ -33,7 +33,8 @@ var request = require("request");
              "price": req.body.price,
              "year": req.body.year,
              "stream_id": req.body.stream_id,
-             "memo": req.body.memo
+             "memo": req.body.memo,
+             "college_id": req.session.auth.college_id
            }
            var query = {
              "type": "insert",
@@ -47,6 +48,9 @@ var request = require("request");
              method: "POST",
              uri: config.domain + '/v1/query',
              json: true,
+             headers: {
+               "Authorization": "Bearer " + req.session.auth.token
+             },
              body: query
            }
            request(options, function(error, response, body){
@@ -70,68 +74,177 @@ var request = require("request");
  }
 
 /**
- * Check input parameters
+* Check input parameters
 */
-function checkParamsBook(info){
-  if(info.name&&info.author&&info.publisher&&info.condition_id&&
-      info.price&&info.year&&info.stream_id&&info.memo){
-        if(info.name.length>30||info.name.length<5){
+function checkParamsBook(info, caller){
+  if((caller==1)||(info.name&&info.author&&info.publisher&&info.condition_id&&
+      info.price&&info.year&&info.stream_id&&info.memo)){ //caller1->EditBook call
+        if(info.name&&(info.name.length>30||info.name.length<5)){
           console.log("Name error");
           return false;
-        }if(info.author.length>30||info.author.length<5){
+        }if(info.author&&(info.author.length>30||info.author.length<5)){
           console.log("Author error");
           return false;
-        }if(info.publisher.length>30||info.publisher.length<5){
+        }if(info.publisher&&(info.publisher.length>30||info.publisher.length<5)){
           console.log("Publisher error");
           return false;
-        }if(info.condition_id<1||info.condition_id>5){
+        }if(info.condition_id&&(info.condition_id<1||info.condition_id>5)){
           console.log("Condition error");
           return false;
-        }if(info.price<1||info.price>5000){
+        }if(info.price&&(info.price<1||info.price>5000)){
           console.log("Price error");
           return false;
         }var year = new Date().getFullYear();
-        if(info.year<1990||info.year>year){
+        if(info.year&&(info.year<1990||info.year>year)){
           console.log("Year error");
           return false;
-        }if(info.memo.length<5||info.memo.length>100){
+        }if(info.memo&&(info.memo.length<5||info.memo.length>100)){
           console.log("Memo error");
           return false;
-        }data.checkStream(info.stream_id, function(isValid){
-          if(!isValid){
-            console.log("Stream error");
-            return false;
-          }else{
-            checkValidImages(info.image_1, info.image_2, info.image_3, function(isValid2){
-              if(!isValid2)
-                console.log("Image error");
-              return isValid2;
-            });
-          }
-        });
+        }if(req.body.available&&typeof(req.body.available)!=="boolean"){
+          console.log("Available error")
+          return false;
+        }if(info.stream_id){
+          data.checkStream(info.stream_id, function(isValid){
+            if(!isValid){
+              console.log("Stream error");
+              return false;
+            }else{
+              if(caller==1)
+                return true;
+              checkValidImages(info.image_1, info.image_2, info.image_3, function(isValid2){
+                if(!isValid2)
+                  console.log("Image error");
+                return isValid2;
+              });
+            }
+          });
+        }
+        return true;
   }else{
+    console.log("Params missing");
     return false;
   }
  }
 
- /**
-  * Check if all images are valid
-  * TODO: think about this shitty algorithm :/
-  */
-  function checkValidImages(image1, image2, image3, callback){
-    util.checkBase64(image1, function(isValid1){
-      if(isValid1){
-        util.checkBase64(image2, function(isValid2){
-          if(isValid2){
-            util.checkBase64(image3, function(isValid3){
-              if(isValid3)
-                callback(true);
-            });
-          }
-        });
-      }
-      callback(false);
-    });
-  }
+/**
+* Check if all images are valid
+* TODO: think about this shitty algorithm :/
+*/
+function checkValidImages(image1, image2, image3, callback){
+  util.checkBase64(image1, function(isValid1){
+    if(isValid1){
+      util.checkBase64(image2, function(isValid2){
+        if(isValid2){
+          util.checkBase64(image3, function(isValid3){
+            if(isValid3)
+              callback(true);
+          });
+        }
+      });
+    }
+    callback(false);
+  });
+}
 
-module.exports = {addBook};
+/**
+ * Edit books
+ */
+function editBook(req, res){
+  //Edit only the parameters passed
+  //prepare a query json
+  values = {};
+  possibleFields = ["name", "author", "publisher", "condition_id", "price", "year", "available", "stream_id", "memo"];
+  for(var i =0;i<possibleFields.length;i++){
+    if(req.body[possibleFields[i]])
+      values[possibleFields[i]] = req.body[possibleFields[i]];
+  }
+  if(req.body.id&&checkParamsBook(values, 1)){
+      //edit the entry
+      var query = {
+        "type": "update",
+        "args": {
+          "table": "book",
+          "$set": values,
+          "where": {"user-id": req.session.auth.id, "id": req.body.id},
+          "returning": ["id"]
+        }
+      }
+      var options = {
+        method: "POST",
+        uri: config.domain + '/v1/query',
+        json: true,
+        headers: {
+          "Authorization": "Bearer " + req.session.auth.token
+        },
+        body: query
+      }
+      request(options, function(error, response, body){
+        if(error){
+          console.log(error);
+          res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+        }else if(body.returning.length==1){
+          //return book id
+          res.status(config.HTTP_CODES.OK).send(body.returning[0].id);
+        }else{
+          res.status(config.HTTP_CODES.SERVER_ERROR)("Error");
+        }
+      });
+  }else{
+    res.status(config.HTTP_CODES.BAD_REQUEST).send({
+      code: 02,
+      message: "Parameter error. Read docs for more."});
+  }
+}
+
+/**
+ * Get complete book info
+ */
+function getBook(req, res){
+  //book id is required to get complete info
+  if(req.query.id){
+    var query = {
+      "type": "select",
+      "args": {
+        "table": "book",
+        "columns": ["*"],
+        "where": {"id": req.query.id, "college_id": req.session.auth.college_id}
+      }
+    }
+    var options = {
+      method: "POST",
+      uri: config.domain + '/v1/query',
+      json: true,
+      headers: {
+        "Authorization": "Bearer " + req.session.auth.token
+      },
+      body: query
+    }
+    request(options, function(error, response, body){
+      if(error){
+        console.log(error);
+        res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+      }else if(body.length==1)
+          res.status(config.HTTP_CODES.OK).send(body[0]);
+       else
+          res.status(config.HTTP_CODES.FORBIDDEN).send("No such book exists");
+    });
+  }else{
+    res.status(config.HTTP_CODES.BAD_REQUEST).send({
+      code: 02,
+      message: "Parameter error. Read docs for more."});
+  }
+}
+
+/**
+ * Get books on dashboard
+ */
+function getBooks(req, res){
+  /**
+  * We will sort the books based on the following params:
+  * stream_id, time
+  * only books of same college will be available to the user
+  */
+}
+
+module.exports = {addBook, editBook, getBook, getBooks};

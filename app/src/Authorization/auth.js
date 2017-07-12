@@ -34,17 +34,20 @@ function login(req, res){
         }else{
           if(body.auth_token){
             console.log("Logged in: " + body.auth_token);
-            req.session.auth = {token: body.auth_token, id: body.hasura_id}; //added cookie
-            util.checkEligible(body.hasura_id, body.auth_token, function(isEligible){
-              if(isEligible){
-                req.session.auth.eligible = true;
-                res.status(config.HTTP_CODES.OK).send("Logged in!");
-              }
-              else{
-                res.status(config.HTTP_CODES.FORBIDDEN).send({
-                  code: 03,
-                  message: "Fill your details to continue"}); //update database
-              }
+            data.getCollegeId(body.hasura_id, function(college_id){
+              req.session.auth = {token: body.auth_token, id: body.hasura_id,
+                                    college_id: college_id}; //added cookie
+              util.checkEligible(body.hasura_id, body.auth_token, function(isEligible){
+                if(isEligible){
+                  req.session.auth.eligible = true;
+                  res.status(config.HTTP_CODES.OK).send("Logged in!");
+                }
+                else{
+                  res.status(config.HTTP_CODES.FORBIDDEN).send({
+                    code: 03,
+                    message: "Fill your details to continue"}); //update database
+                }
+              });
             });
           }else{
             res.status(config.HTTP_CODES.FORBIDDEN).send({code: 04, message: "Invalid credentials!"});

@@ -1,7 +1,7 @@
 /**
- * @author: Shubham Sharma
- *
- * Contains routing for the app
+* @author: Shubham Sharma
+*
+* Contains routing for the app
 */
 
 //Include modules
@@ -14,63 +14,79 @@ var config = require('./config.js');
 var book = require('./Data/book.js');
 
 /**
- * Authorization requests
+* Authorization requests
 */
 
 //login
 router.post('/login', function(req, res){
-  auth.login(req, res);
+auth.login(req, res);
 });
 
 //logout
 router.get('/logout', function(req, res){
-  auth.logout(req, res);
+auth.logout(req, res);
 });
 
 //register
 router.post('/register', function(req, res){
-  auth.register(req, res);
+auth.register(req, res);
 });
 
 //info
 router.get('/user-info', function(req, res){
-  auth.getInfo(req, res);
+auth.getInfo(req, res);
 });
 
 //add details (only used if SHELF user data is missing)
 router.post('/register-user', function(req, res){
-  auth.registerShelf(req, res);
+auth.registerShelf(req, res);
 });
 
 /**
- * Data requests
- */
+* Data requests
+*/
 
 //checks username is available or not
 //returns bool
 //query ?val=
- router.get('/check-username', function(req, res){
-   data.checkUsername(req, res);
- });
+router.get('/check-username', function(req, res){
+ data.checkUsername(req, res);
+});
 
- //get stream details
- router.get('/get-streams', function(req, res){
-   data.getStreams(req, res);
- });
+//get stream details
+router.get('/get-streams', function(req, res){
+ data.getStreams(req, res);
+});
 
- //get college details
- router.get('/get-colleges', function(req, res){
-   data.getColleges(req, res);
- });
+//get college details
+router.get('/get-colleges', function(req, res){
+ data.getColleges(req, res);
+});
 
 /**
- * Book requests
- */
+* Book requests
+*/
 
- //add book
- router.post('/add-book', function(req, res){
-   book.addBook(req, res);
- });
+//add book
+router.post('/add-book', function(req, res){
+ book.addBook(req, res);
+});
+
+//edit book
+router.post('/edit-book', function(req, res){
+  book.editBook(req, res);
+});
+
+//get book
+//query ?id=xxx
+router.get('/get-book', function(req, res){
+  book.getBook(req, res);
+});
+
+//returns a personalised sorted list of books
+router.get('/get-books', function(req, res){
+  book.getBooks(req, res);
+});
 
 //Default routing
 router.get('/*', function(req, res){

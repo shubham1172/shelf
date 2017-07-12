@@ -48,6 +48,7 @@ app.use('/', router);
 app.listen(config.PORT_NUMBER, function () {
   console.log('Shelf started on ' + config.PORT_NUMBER);
   admin.genToken(function(token){
+    console.log("Logged in to Hasura.");
     config.TOKEN = token;
   });
 });

@@ -189,4 +189,38 @@ function checkStream(stream_id, callback){
     });
 }
 
-module.exports = {createUser, getStreams, getColleges, checkUsername, checkStream};
+/**
+ * Get college id of user
+ */
+function getCollegeId(user_id, callback){
+  var query = {
+    "type": "select",
+    "args": {
+      "table" : "user",
+      "columns": ["college_id"],
+      "where": {"id": user_id}
+    }
+  }
+  var options = {
+    method: "POST",
+    uri: domain + '/v1/query',
+    json: true,
+    headers: {
+      "Authorization": "Bearer " + admin.getToken()
+    },
+    body: query
+    }
+    request(options, function(error, response, body){
+      if(error){
+        console.log(error);
+        callback(false);
+      }if(body.length!=1){
+        console.log(body);
+        callback(false);
+      }else{
+          callback(body[0].college_id);
+      }
+    });
+}
+
+module.exports = {createUser, getStreams, getColleges, checkUsername, checkStream, getCollegeId};
