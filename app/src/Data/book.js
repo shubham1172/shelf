@@ -245,6 +245,34 @@ function getBooks(req, res){
   * stream_id, time
   * only books of same college will be available to the user
   */
+  var query = {
+    "type": "select",
+    "args": {
+      "table": "book",
+      "columns": ["*"],
+      "where": {"college_id": req.session.auth.college_id},
+      "order_by": {
+        "column": "time",
+        "order": "desc"
+      }
+    }
+  }
+  var options = {
+    method: "POST",
+    uri: config.domain + '/v1/query',
+    json: true,
+    headers: {
+      "Authorization": "Bearer " + req.session.auth.token
+    },
+    body: query
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+    }else
+        res.status(config.HTTP_CODES.OK).send(body); //TODO: add sorting 
+  });
 }
 
 module.exports = {addBook, editBook, getBook, getBooks};
