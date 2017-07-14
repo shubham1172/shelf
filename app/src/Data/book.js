@@ -20,8 +20,9 @@ var request = require("request");
      //add images
      util.uploadImages(req.body.image_1, req.body.image_2, req.body.image_3,
        function(photoID){
-         if(photoID=="Error")
-          res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+         if(photoID=="Error"){
+            res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+         }
          else{
            var toSend = {
              "user_id": req.session.auth.id,
@@ -101,7 +102,7 @@ function checkParamsBook(info, caller){
         }if(info.memo&&(info.memo.length<5||info.memo.length>100)){
           console.log("Memo error");
           return false;
-        }if(req.body.available&&typeof(req.body.available)!=="boolean"){
+        }if(info.available&&typeof(info.available)!=="boolean"){
           console.log("Available error")
           return false;
         }if(info.stream_id){

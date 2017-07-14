@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     $('#upload').click(function(){
     var reader = new FileReader();
     reader.onload = function(event){
@@ -17,7 +16,6 @@ $(document).ready(function(){
       request.open('POST','http://localhost:8080/test-file',true);
       request.setRequestHeader('Content-Type', 'application/json');
       request.send(JSON.stringify({photo: event.target.result}));
-
     };
     reader.readAsDataURL($("#test").get(0).files[0]);
   });
@@ -31,4 +29,4 @@ var loadFile = function(event) {
         img = event.target.result;
         };
         reader.readAsDataURL(event.target.files[0]);
-    };
+};

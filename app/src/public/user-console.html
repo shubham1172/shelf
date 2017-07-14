@@ -46,7 +46,7 @@
                 <div id="new-book-1">
                     <form id="book-form" autocomplete="off">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input">
-                            <input class="mdl-textfield__input" type="text" id="book">
+                            <input class="mdl-textfield__input" type="text" id="book-name">
                             <label class="mdl-textfield__label" for="name" id="book-label">Book</label>
                         </div><br>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label book-input">
@@ -71,37 +71,46 @@
                         </div><br><br>
                         <span style="margin-left:30px;"> Choose condition of the book using slider.</span><br><br>
                         <div class="book-input2" style="width:453px;margin-left:4px">
-                         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="5" value="3" tabindex="0" id="condition">
+                         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="5" value="3" tabindex="0" id="condition" name="condition">
                          </div>
                     </form> 
                 </div>     
                 <div id="new-book-2">
                     <div class="mdl-textfield mdl-js-textfield" style="width:100%;">
-                        <textarea class="mdl-textfield__input" type="text" rows="6" maxrows="6" id="schools"></textarea>
+                        <textarea class="mdl-textfield__input" type="text" rows="3" maxrows="6" id="memo"></textarea>
                         <label class="mdl-textfield__label" for="schools">Book description.(Write what you feel about the book)</label>
                     </div>
 
+                    <div id="photos">
                     <label for="file-upload-1" class="custom-file-upload">
                         <i class="fa fa-cloud-upload"></i> 
                         Front Cover
                     </label>
-                    <input id="file-upload-1" type="file" accept="image/*" onchange="loadFile1(event)" />
+                    <input id="file-upload-1" type="file" accept="image/*"/>
 
                     <label for="file-upload-2" class="custom-file-upload">
                         <i class="fa fa-cloud-upload"></i> 
                         Back Cover
                     </label>
-                    <input id="file-upload-2" type="file" accept="image/*" onchange="loadFile2(event)" />
+                    <input id="file-upload-2" type="file" accept="image/*"/>
 
                     <label for="file-upload-3" class="custom-file-upload">
                         <i class="fa fa-cloud-upload"></i> 
                         Inside
                     </label>
-                    <input id="file-upload-3" type="file" accept="image/*" onchange="loadFile3(event)" />
+                    <input id="file-upload-3" type="file" accept="image/*"/>
                     <br>
                     <img id="output1" width = "30%" height="30%"/>
                     <img id="output2" width = "30%" height="30%"/>
-                    <img id="output3" width = "30%" height="30%"/>
+                    <img id="output3" width = "30%" height="30%"/><br><br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent signin-button" id="photos-validation-button">
+                    Validate Photos 
+                    </button>
+
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent signin-button" id="post-book">
+                    POST 
+                    </button>
+                    </div> 
                 </div>
             </div>
             <div class="mdl-tabs__panel" id="orders">
@@ -110,6 +119,9 @@
     </span>
     <footer id="footer"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
     Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
+    <div id="img1-base64"></div>
+    <div id="img2-base64"></div>
+    <div id="img3-base64"></div>
     </footer>
     <!-- Module -->
     <script src="http://localhost:8080/js/app.js"></script>
