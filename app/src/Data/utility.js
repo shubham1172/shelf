@@ -22,6 +22,7 @@ function checkBase64(data, callback){
     }
 }
 
+//Upload file to server
 function uploadFile(content, callback){
   //Make a POST request and upload the file
   var fileName = crypto.randomBytes(64).toString('hex');
@@ -51,6 +52,7 @@ function uploadFile(content, callback){
   });
 }
 
+//upload files to server and insert photos record
 function uploadImages(image1, image2, callback){
   uploadFile(image1, function(data1){
     uploadFile(image2, function(data2){
@@ -92,4 +94,33 @@ function uploadImages(image1, image2, callback){
    });
 }
 
-module.exports = {uploadImages, uploadFile, checkBase64};
+//get photo base64 data
+function fetchImage(imageURL, callback){
+  var options = {
+    method: "GET",
+    url: domain + '/' + imageURL
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      callback("Error");
+    }else{
+      console.log("Fetched");
+      callback(body);
+    }
+  });
+}
+
+//get photos
+function fetchImages(imageURLs, callback){
+  data = {};
+  fetchImage(imageURLs.photo1, function(data1){
+    data.image_1 = data1;
+    fetchImage(imageURLs.photo2, function(data2){
+      data.image_2 = data2;
+      callback(data);
+    });
+  });
+}
+
+module.exports = {uploadImages, uploadFile, checkBase64, fetchImages};

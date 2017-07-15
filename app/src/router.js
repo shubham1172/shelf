@@ -88,6 +88,12 @@ router.get('/get-books', function(req, res){
   book.getBooks(req, res);
 });
 
+//returns book photos
+//query ?id=xxx
+router.get('/get-photos', function(req, res){
+  book.getPhotos(req, res);
+});
+
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");
