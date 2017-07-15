@@ -14,8 +14,8 @@ var admin = require('./../Authorization/admin.js');
  * Check if image data is a valid base64 string
  */
 function checkBase64(data, callback){
-    var re = new RegExp("/^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/");
-    if(re.test(data)){
+    var re = new RegExp("^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$");
+    if(re.test(data.substr(data.search("base64")+7))){
       callback(true);
     }else{
       callback(false);
@@ -50,16 +50,15 @@ function uploadFile(content, callback){
   });
 }
 
-function uploadImages(image1, image2, image3, callback){
+function uploadImages(image1, image2, callback){
   uploadFile(image1, function(data1){
     if(data1=="Error")
       callback("Error");
+    else
     uploadFile(image2, function(data2){
       if(data2=="Error")
         callback("Error");
-      uploadFile(image3, function(data3){
-        if(data3=="Error")
-          callback("Error");
+      else{
           //add to photos table
           var query = {
             "type": "insert",
@@ -67,8 +66,7 @@ function uploadImages(image1, image2, image3, callback){
               "table": "photos",
               "objects": [{
                 "photo1": data1,
-                "photo2": data2,
-                "photo3": data3}],
+                "photo2": data2 }],
               "returning": ["id"]
             }
           }
@@ -89,9 +87,9 @@ function uploadImages(image1, image2, image3, callback){
               callback("Error");
             }
           });
-       });
-    });
-  });
+       }
+      });
+   });
 }
 
 module.exports = {uploadImages, uploadFile, checkBase64};

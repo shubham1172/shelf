@@ -12,13 +12,13 @@ var request = require("request");
 /**
 * Add books to SHELF
 * Params required: name, author, publisher, condition_id, image_1,
-*                  image_2, image_3, price, year, stream_id, memo
+*                  image_2, price, year, stream_id, memo
 */
  function addBook(req, res){
    //Check and verify params
    if(checkParamsBook(req.body, 0)){ //caller 0 indicates addBook's call
      //add images
-     util.uploadImages(req.body.image_1, req.body.image_2, req.body.image_3,
+     util.uploadImages(req.body.image_1, req.body.image_2,
        function(photoID){
          if(photoID=="Error"){
             res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
@@ -113,8 +113,8 @@ function checkParamsBook(info, caller){
             }else{
               if(caller==1)
                 return true;
-              checkValidImages(info.image_1, info.image_2, info.image_3, function(isValid2){
-                if(!isValid2)
+              checkValidImages(info.image_1, info.image_2, function(isValid2){
+                if(isValid2==false)
                   console.log("Image error");
                 return isValid2;
               });
@@ -132,20 +132,19 @@ function checkParamsBook(info, caller){
 * Check if all images are valid
 * TODO: think about this shitty algorithm :/
 */
-function checkValidImages(image1, image2, image3, callback){
+function checkValidImages(image1, image2, callback){
   util.checkBase64(image1, function(isValid1){
     if(isValid1){
       util.checkBase64(image2, function(isValid2){
         if(isValid2){
-          util.checkBase64(image3, function(isValid3){
-            if(isValid3)
               callback(true);
+            }else{
+              callback(false);
+            }
           });
-        }
+        }else
+          callback(false);
       });
-    }
-    callback(false);
-  });
 }
 
 /**
@@ -272,7 +271,7 @@ function getBooks(req, res){
       console.log(error);
       res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
     }else
-        res.status(config.HTTP_CODES.OK).send(body); //TODO: add sorting 
+        res.status(config.HTTP_CODES.OK).send(body); //TODO: add sorting
   });
 }
 
