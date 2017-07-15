@@ -20,6 +20,9 @@ document.onreadystatechange = function () {
 //Script running when document ready.
 $(document).ready(function(){
 
+var branch;
+var streamId = {};
+
     $("#file-upload-1").on("change",function(){
         var loadFile1 = function(event){
         var reader = new FileReader();
@@ -29,7 +32,6 @@ $(document).ready(function(){
         };
         reader.readAsDataURL($("#file-upload-1").get(0).files[0]);
     };
-
     loadFile1(event);
 });
 
@@ -43,26 +45,12 @@ $(document).ready(function(){
        reader.readAsDataURL($("#file-upload-2").get(0).files[0]);
     };
     loadFile2(event);
-});
-
-    $("#file-upload-3").on("change",function(){
-        var loadFile3 = function(event){
-        var reader = new FileReader();
-        reader.onload = function(){
-        var output = document.getElementById('output3');
-        output.src = reader.result;
-        };
-        reader.readAsDataURL($("#file-upload-3").get(0).files[0]);
-    };
-    loadFile3(event);
     $("#photos-validation-button").click();
 });
-
 
 $("#photos-validation-button").on("click",function(){
     var img1;
     var img2;
-    var img3;
 
     var reader1 = new FileReader();
     reader1.onload = function(){
@@ -74,17 +62,44 @@ $("#photos-validation-button").on("click",function(){
     reader2.onload = function(){
        $("#img2-base64").append(event.target.result);
     }
-    reader2.readAsDataURL($("#file-upload-3").get(0).files[0]);
-
-    var reader3 = new FileReader();
-    reader3.onload = function(){
-        $("#img3-base64").append(event.target.result);
-    }
-    reader3.readAsDataURL($("#file-upload-3").get(0).files[0]);   
+    reader2.readAsDataURL($("#file-upload-2").get(0).files[0]);   
 });
 
-//XHR for posting book
+
+//XHR for getting streams - returns stream name, stream_id, type
+      var streamReq = new XMLHttpRequest();
+      streamReq.onload = function(){
+              if(streamReq.readystate = XMLHttpRequest.DONE){
+                  if(streamReq.status === 200||streamReq.status === 304){
+                      var stream = JSON.parse(streamReq.responseText);
+                      var streamTemp = {};
+                      for(var i=0;i<stream.length;i++){
+                        streamTemp[stream[i].stream] = null;
+                      }
+                      for(var i=0;i<stream.length;i++){
+                        streamId[stream[i].stream] = stream[i].stream_id;
+                      }
+                      $('input.select-stream').autocomplete({
+                            data: streamTemp,
+                            limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                            onAutocomplete: function(val) {
+                              // Callback function when value is autcompleted.
+                            },
+                            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+                            });
+                  }
+                  if(streamReq.status === 403 ){
+                      console.log(streamReq.responseText);
+                  }
+              }
+      }
+      streamReq.open('GET','http://localhost:8080/get-streams',true);
+      streamReq.send(null);
+
+
+      //XHR for posting book
     $("#post-book").on("click",function(){
+        branch = $("#stream").val();
         var postBook = new XMLHttpRequest();
         postBook.onload = function(){
             if(postBook.readyState = XMLHttpRequest.DONE){
@@ -98,7 +113,7 @@ $("#photos-validation-button").on("click",function(){
         var name = $("#book-name").val().trim();
         var author = $("#author").val().trim();
         var publisher = $("#publisher").val().trim();
-        var condition = $("#condition").attr('value');
+        var condition = $("#condition").val();
         var year = $("#year").val();
         var price = $("#price").val();
         var stream = $("#stream").val();
@@ -108,8 +123,10 @@ $("#photos-validation-button").on("click",function(){
         var img3 = $("#img3-base64").text();
         postBook.open('POST', 'http://localhost:8080/add-book', true);
         postBook.setRequestHeader('Content-Type', 'application/json');
-        var book = {name:name,author:author,publisher:publisher,condition_id:condition,price:price,year:year,stream_id:stream,memo:memo,image_1:img1,image_2:img2,image_3:img3};
+        var book = {name:name,author:author,publisher:publisher,condition_id:condition,price:price,year:year,stream_id:streamId[branch],memo:memo,image_1:img1,image_2:img2};
        console.log(book);
         postBook.send(JSON.stringify(book));
     });
- });
+});
+
+

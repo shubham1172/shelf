@@ -17,39 +17,85 @@ body {
 }
 
 #primary-info{
-    width: 700px;
-    height: 290px;
-    padding: 0% 5% 5% 5%;
+    width: 500px;
+    height: 365px;
+    padding: 0% 5% 0% 5%;
     background: #ffffff;
     position: absolute;
     top:50;
     bottom: 0;
-    left: 0;
+    left: 90;
     right: 0;
     margin: auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    float: right;
+}
+
+.p-menu{
+  margin-left: 30px;
 }
 
 #sell{
-    width: 99%;
-    height: 480px;
-    padding: 3% 5% 5% 5%;
+   width: 1050px;
+    height: 65%;
+    padding: 1% 5% 3% 5%;
     background: #ffffff;
-    left: 0;
+    position: absolute;
+    top:50;
+    bottom: 0;
+    left: 90;
     right: 0;
     margin: auto;
-    margin-top: 10px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    float: right;
 }
 
 .book-input{
-  margin-left: 30px;
-  width: 400px;
+  width: 300px;
 }
 
 .book-input2{
-  margin-left: 30px;
-  width:100px;
+  width: 100px;
+}
+
+#orders{
+   width: 900px;
+    height: 60%;
+    padding: 0% 5% 1% 5%;
+    background: #ffffff;
+    position: absolute;
+    top:50;
+    bottom: 0;
+    left: 90;
+    right: 0;
+    margin: auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    float: right;
+}
+
+
+#sell,#orders{
+  display:none;
+}
+
+#tabs{
+    width: 350px;
+    height: 120px;
+    padding: 0% 5% 0% 5%;
+    /*background: #ffffff;*/
+    position: absolute;
+    top:-30;
+    bottom: 0;
+    left: 40;
+    margin: auto;
+    /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
+    float: left;
+}
+
+#primary-info-tab:hover,#sell-tab:hover,#orders-tab:hover{
+    cursor: hand;
+    color: green;
+    font-weight: bold;
 }
 
 #footer{
@@ -63,17 +109,7 @@ body {
   text-align: center;
 }
 
-#new-book-1{
-  height: 480px;
-  width: 50%;
-  float: left;
-}
 
-#new-book-2{
-  height: 480px;
-  width: 50%;
-  float: right;
-}
 
 input[type="file"] {
     display: none;
@@ -83,7 +119,7 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-    margin: 40px;
+    margin: 20px;
 }
 
 #img1-base64,#img2-base64,#img3-base64{
@@ -92,4 +128,12 @@ input[type="file"] {
 
 #photos-validation-button{
   display: none;
+}
+
+#post-book{
+  bottom: -5;
+  right: -280;
+  border-radius: 100%;
+  width: 10px;
+  height: 60px;
 }
