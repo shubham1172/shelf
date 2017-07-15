@@ -239,6 +239,7 @@ function getBook(req, res){
 
 /**
  * Get books on dashboard
+ * Specify book id to receive next ten books from that ID
  */
 function getBooks(req, res){
   /**
@@ -251,12 +252,21 @@ function getBooks(req, res){
     "args": {
       "table": "book",
       "columns": ["*"],
-      "where": {"college_id": req.session.auth.college_id},
+      "where": {
+          "college_id": req.session.auth.college_id,
+          "id": {
+            "$gt": 0
+          }
+        },
       "order_by": {
         "column": "time",
         "order": "desc"
-      }
+      },
+      "limit": 10
     }
+  }
+  if(req.query.id){
+    query.args.where.id.$gt = req.query.id;
   }
   var options = {
     method: "POST",
