@@ -47,7 +47,7 @@ var request = require("request");
            }
            var options = {
              method: "POST",
-             uri: config.domain + '/v1/query',
+             url: "http://data." + config.DOMAIN + '/v1/query',
              json: true,
              headers: {
                "Authorization": "Bearer " + req.session.auth.token
@@ -55,6 +55,7 @@ var request = require("request");
              body: query
            }
            request(options, function(error, response, body){
+           console.log(body);
              if(error){
                console.log(error);
                res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
@@ -172,7 +173,7 @@ function editBook(req, res){
       }
       var options = {
         method: "POST",
-        uri: config.domain + '/v1/query',
+        url: "http://data." + config.DOMAIN + '/v1/query',
         json: true,
         headers: {
           "Authorization": "Bearer " + req.session.auth.token
@@ -213,7 +214,7 @@ function getBook(req, res){
     }
     var options = {
       method: "POST",
-      uri: config.domain + '/v1/query',
+      url: "http://data." + config.DOMAIN + '/v1/query',
       json: true,
       headers: {
         "Authorization": "Bearer " + req.session.auth.token
@@ -259,7 +260,7 @@ function getBooks(req, res){
   }
   var options = {
     method: "POST",
-    uri: config.domain + '/v1/query',
+    url: "http://" + config.DOMAIN + '/v1/query',
     json: true,
     headers: {
       "Authorization": "Bearer " + req.session.auth.token

@@ -23,7 +23,7 @@ function login(req, res){
       };
       var options = {
         method: 'POST',
-        uri: domain+'/login',
+        url: domain+'/login',
         json: true,
         body: toSend
       }
@@ -92,7 +92,7 @@ function register(req, res){
        }
        var options = {
          method: "POST",
-         uri: domain+'/signup',
+         url: domain+'/signup',
          json: true,
          body: query
        }
@@ -130,7 +130,7 @@ function register(req, res){
 function getInfo(req, res){
   var options = {
     method: 'GET',
-    uri: domain+'/user/account/info',
+    url: domain+'/user/account/info',
     headers: {
       'Authorization': 'Bearer '+req.session.auth.token,
       'Content-Type': 'application/json'

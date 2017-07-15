@@ -20,7 +20,7 @@ function getInfo(id, token, callback){
   }
   var options = {
     method: 'POST',
-    uri: domain+'/v1/query',
+    url: domain+'/v1/query',
     headers: {
       'Authorization': 'Bearer '+token,
       'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ function checkEligible(id, token, callback){
     }
     var options = {
       method: 'POST',
-      uri: domain+'/v1/query',
+      url: domain+'/v1/query',
       headers: {
         'Authorization': 'Bearer '+ token,
         'Content-Type': 'application/json'

@@ -28,7 +28,7 @@ function uploadFile(content, callback){
   var type = 'text/plain';
   var options = {
     method: "POST",
-    uri: domain + '/' + fileName,
+    url: domain + '/' + fileName,
     body: content,
     headers: {
       'Content-Type': type,
@@ -36,6 +36,7 @@ function uploadFile(content, callback){
     }
   }
   request(options, function(error, response, body){
+    body = JSON.parse(body);
     if(error){
       console.log(error);
       callback("Error");
@@ -52,42 +53,41 @@ function uploadFile(content, callback){
 
 function uploadImages(image1, image2, callback){
   uploadFile(image1, function(data1){
-    if(data1=="Error")
-      callback("Error");
-    else
     uploadFile(image2, function(data2){
-      if(data2=="Error")
-        callback("Error");
-      else{
-          //add to photos table
-          var query = {
-            "type": "insert",
-            "args": {
-              "table": "photos",
-              "objects": [{
-                "photo1": data1,
-                "photo2": data2 }],
-              "returning": ["id"]
-            }
+        //add to photos table
+        var query = {
+          "type": "insert",
+          "args": {
+            "table": "photos",
+            "objects": [{
+              "photo1": data1,
+              "photo2": data2 }],
+            "returning": ["id"]
           }
-          var options = {
-            method: "POST",
-            uri: config.domain + '/v1/query',
-            json: true,
-            body: query
+        }
+        var options = {
+          method: "POST",
+          url:"http://data." + config.DOMAIN + '/v1/query',
+          json: true,
+          headers: {
+            'Authorization': 'Bearer ' + admin.getToken()
+          },
+          body: query
+        }
+        request(options, function(error, response, body){
+          console.log(body);
+          if(error){
+            console.log(error);
+            callback("Error");
+          }else if(body.returning.length==1){
+            //return photo id
+            callback(body.returning[0].id);
+          }else{
+            console.log("Error in body");
+            console.log(body);
+            callback("Error");
           }
-          request(options, function(error, response, body){
-            if(error){
-              console.log(error);
-              callback("Error");
-            }else if(body.returning.length==1){
-              //return photo id
-              callback(body.returning[0].id);
-            }else{
-              callback("Error");
-            }
-          });
-       }
+        });
       });
    });
 }

@@ -39,7 +39,7 @@
    }
    var options = {
      method: 'POST',
-     uri: domain + '/v1/query',
+     url: domain + '/v1/query',
      json: true,
      headers: {
        'Authorization': 'Bearer ' + admin.getToken()
@@ -68,7 +68,7 @@
    }
    var options = {
      method: "POST",
-     uri: domain + '/v1/query',
+     url: domain + '/v1/query',
      json: true,
      headers: {
        "Authorization": "Bearer " + admin.getToken()
@@ -97,7 +97,7 @@
    }
    var options = {
      method: "POST",
-     uri: domain + '/v1/query',
+     url: domain + '/v1/query',
      json: true,
      headers: {
        "Authorization": "Bearer " + admin.getToken()
@@ -131,7 +131,7 @@
       }
       var options = {
         method: "POST",
-        uri: domain + '/v1/query',
+        url: domain + '/v1/query',
         json: true,
         headers: {
           "Authorization": "Bearer " + admin.getToken()
@@ -169,7 +169,7 @@ function checkStream(stream_id, callback){
   }
   var options = {
     method: "POST",
-    uri: domain + '/v1/query',
+    url: domain + '/v1/query',
     json: true,
     headers: {
       "Authorization": "Bearer " + admin.getToken()
@@ -180,7 +180,7 @@ function checkStream(stream_id, callback){
       if(error){
         console.log(error);
         callback(false);
-      }if(body.length!=1){
+      }else if(body.length!=1){
         console.log(body);
         callback(false);
       }else{
@@ -203,7 +203,7 @@ function getCollegeId(user_id, callback){
   }
   var options = {
     method: "POST",
-    uri: domain + '/v1/query',
+    url: domain + '/v1/query',
     json: true,
     headers: {
       "Authorization": "Bearer " + admin.getToken()
