@@ -23,7 +23,7 @@
    }
    var options = {
      method: 'POST',
-     uri: domain+'/login',
+     url: domain+'/login',
      json: true,
      body: toSend
    }

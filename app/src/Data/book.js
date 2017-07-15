@@ -47,7 +47,7 @@ var request = require("request");
            }
            var options = {
              method: "POST",
-             uri: config.domain + '/v1/query',
+             url: "http://data." + config.DOMAIN + '/v1/query',
              json: true,
              headers: {
                "Authorization": "Bearer " + req.session.auth.token
@@ -55,6 +55,7 @@ var request = require("request");
              body: query
            }
            request(options, function(error, response, body){
+           console.log(body);
              if(error){
                console.log(error);
                res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
@@ -172,7 +173,7 @@ function editBook(req, res){
       }
       var options = {
         method: "POST",
-        uri: config.domain + '/v1/query',
+        url: "http://data." + config.DOMAIN + '/v1/query',
         json: true,
         headers: {
           "Authorization": "Bearer " + req.session.auth.token
@@ -213,7 +214,7 @@ function getBook(req, res){
     }
     var options = {
       method: "POST",
-      uri: config.domain + '/v1/query',
+      url: "http://data." + config.DOMAIN + '/v1/query',
       json: true,
       headers: {
         "Authorization": "Bearer " + req.session.auth.token
@@ -238,6 +239,7 @@ function getBook(req, res){
 
 /**
  * Get books on dashboard
+ * Specify book id to receive next ten books from that ID
  */
 function getBooks(req, res){
   /**
@@ -250,16 +252,25 @@ function getBooks(req, res){
     "args": {
       "table": "book",
       "columns": ["*"],
-      "where": {"college_id": req.session.auth.college_id},
+      "where": {
+          "college_id": req.session.auth.college_id,
+          "id": {
+            "$gt": 0
+          }
+        },
       "order_by": {
         "column": "time",
         "order": "desc"
-      }
+      },
+      "limit": 10
     }
+  }
+  if(req.query.id){
+    query.args.where.id.$gt = req.query.id;
   }
   var options = {
     method: "POST",
-    uri: config.domain + '/v1/query',
+    url: "http://data." + config.DOMAIN + '/v1/query',
     json: true,
     headers: {
       "Authorization": "Bearer " + req.session.auth.token
@@ -275,4 +286,44 @@ function getBooks(req, res){
   });
 }
 
-module.exports = {addBook, editBook, getBook, getBooks};
+/**
+* Get photos' base64 data
+* Requires photo id
+*/
+function getPhotos(req, res){
+  if(req.query.id){
+      var query = {
+        "type": "select",
+        "args": {
+          "table": "photos",
+          "columns": ["photo1", "photo2"],
+          "where": {"id": req.query.id}
+        }
+      }
+      var options = {
+        method: "POST",
+        url: "http://data." + config.DOMAIN + '/v1/query',
+        json: true,
+        headers: {
+          "Authorization": "Bearer " + req.session.auth.token
+        },
+        body: query
+      }
+      request(options, function(error, response, body){
+        if(error){
+          console.log(error);
+          res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+        }else{
+          util.fetchImages(body[0], function(data){
+            res.status(config.HTTP_CODES.OK).send(data);
+          });
+        }
+      });
+  }else{
+    res.status(config.HTTP_CODES.BAD_REQUEST).send({
+      code: 02,
+      message: "Parameter error. Read docs for more."});
+  }
+}
+
+module.exports = {addBook, editBook, getBook, getBooks, getPhotos};

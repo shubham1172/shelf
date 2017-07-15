@@ -22,13 +22,14 @@ function checkBase64(data, callback){
     }
 }
 
+//Upload file to server
 function uploadFile(content, callback){
   //Make a POST request and upload the file
   var fileName = crypto.randomBytes(64).toString('hex');
   var type = 'text/plain';
   var options = {
     method: "POST",
-    uri: domain + '/' + fileName,
+    url: domain + '/' + fileName,
     body: content,
     headers: {
       'Content-Type': type,
@@ -36,6 +37,7 @@ function uploadFile(content, callback){
     }
   }
   request(options, function(error, response, body){
+    body = JSON.parse(body);
     if(error){
       console.log(error);
       callback("Error");
@@ -50,46 +52,75 @@ function uploadFile(content, callback){
   });
 }
 
+//upload files to server and insert photos record
 function uploadImages(image1, image2, callback){
   uploadFile(image1, function(data1){
-    if(data1=="Error")
-      callback("Error");
-    else
     uploadFile(image2, function(data2){
-      if(data2=="Error")
-        callback("Error");
-      else{
-          //add to photos table
-          var query = {
-            "type": "insert",
-            "args": {
-              "table": "photos",
-              "objects": [{
-                "photo1": data1,
-                "photo2": data2 }],
-              "returning": ["id"]
-            }
+        //add to photos table
+        var query = {
+          "type": "insert",
+          "args": {
+            "table": "photos",
+            "objects": [{
+              "photo1": data1,
+              "photo2": data2 }],
+            "returning": ["id"]
           }
-          var options = {
-            method: "POST",
-            uri: config.domain + '/v1/query',
-            json: true,
-            body: query
+        }
+        var options = {
+          method: "POST",
+          url:"http://data." + config.DOMAIN + '/v1/query',
+          json: true,
+          headers: {
+            'Authorization': 'Bearer ' + admin.getToken()
+          },
+          body: query
+        }
+        request(options, function(error, response, body){
+          console.log(body);
+          if(error){
+            console.log(error);
+            callback("Error");
+          }else if(body.returning.length==1){
+            //return photo id
+            callback(body.returning[0].id);
+          }else{
+            console.log("Error in body");
+            console.log(body);
+            callback("Error");
           }
-          request(options, function(error, response, body){
-            if(error){
-              console.log(error);
-              callback("Error");
-            }else if(body.returning.length==1){
-              //return photo id
-              callback(body.returning[0].id);
-            }else{
-              callback("Error");
-            }
-          });
-       }
+        });
       });
    });
 }
 
-module.exports = {uploadImages, uploadFile, checkBase64};
+//get photo base64 data
+function fetchImage(imageURL, callback){
+  var options = {
+    method: "GET",
+    url: domain + '/' + imageURL
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      callback("Error");
+    }else{
+      console.log("Fetched");
+      callback(body);
+    }
+  });
+}
+
+//get photos
+function fetchImages(imageURLs, callback){
+  data = {};
+  fetchImage(imageURLs.photo1, function(data1){
+    data.image_1 = data1;
+    fetchImage(imageURLs.photo2, function(data2){
+      data.image_2 = data2;
+      callback(data);
+    });
+  });
+}
+
+module.exports = {uploadImages, uploadFile, checkBase64, fetchImages};
