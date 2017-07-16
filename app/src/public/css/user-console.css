@@ -24,7 +24,7 @@ body {
     position: absolute;
     top:50;
     bottom: 0;
-    left: 90;
+    left: 50;
     right: 0;
     margin: auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -43,7 +43,7 @@ body {
     position: absolute;
     top:50;
     bottom: 0;
-    left: 90;
+    left: 50;
     right: 0;
     margin: auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -66,7 +66,7 @@ body {
     position: absolute;
     top:50;
     bottom: 0;
-    left: 90;
+    left: 50;
     right: 0;
     margin: auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -84,12 +84,13 @@ body {
     padding: 0% 5% 0% 5%;
     /*background: #ffffff;*/
     position: absolute;
-    top:-30;
+    top:0;
     bottom: 0;
     left: 40;
     margin: auto;
     /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
     float: left;
+    font-size: 64px;
 }
 
 #primary-info-tab:hover,#sell-tab:hover,#orders-tab:hover{

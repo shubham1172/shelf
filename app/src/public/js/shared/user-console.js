@@ -39,5 +39,7 @@ $(document).ready(function(){
       $("#orders").css("display","inline");
   });
  
+    $('.tooltipped').tooltip({delay: 10});
+
 });
 
