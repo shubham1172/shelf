@@ -61,9 +61,9 @@ var request = require("request");
                res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
              }else if(body.returning.length==1){
                //return book id
-               res.status(config.HTTP_CODES.OK).send(body.returning[0].id);
+               res.status(config.HTTP_CODES.OK).send((body.returning[0].id).toString());
              }else{
-               res.status(config.HTTP_CODES.SERVER_ERROR)("Error");
+               res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
              }
            });
          }
