@@ -251,7 +251,7 @@ function getBooks(req, res){
     "type": "select",
     "args": {
       "table": "book",
-      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price"],
+      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price", "time"],
       "where": {
           "college_id": req.session.auth.college_id,
           "id": {
@@ -334,9 +334,13 @@ function getUploaded(req, res){
     "type": "select",
     "args": {
       "table": "book",
-      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price"],
+      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price", "time"],
       "where": {
           "user_id": req.session.auth.id
+        },
+        "order_by": {
+          "column": "time",
+          "order": "desc"
         }
     }
   }
