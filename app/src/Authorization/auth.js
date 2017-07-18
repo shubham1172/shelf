@@ -128,9 +128,19 @@ function register(req, res){
  * Get information about user
  */
 function getInfo(req, res){
+  var query = {
+    "type": "select",
+    "args":{
+        "table": "userinfo",
+        "columns": ["*"],
+        "where": {"id": req.session.auth.id}
+    }
+  }
   var options = {
-    method: 'GET',
-    url: domain+'/user/account/info',
+    method: 'POST',
+    url: "http://data." + config.DOMAIN + '/v1/query',
+    json: true,
+    body: query,
     headers: {
       'Authorization': 'Bearer '+req.session.auth.token,
       'Content-Type': 'application/json'
@@ -141,17 +151,7 @@ function getInfo(req, res){
       console.log(error);
       res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
     }else{
-      body = JSON.parse(body);
-      util.getInfo(body.hasura_id, req.session.auth.token, function(info){
-          if(info=="Error"){
-            res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
-          }else{
-            info.username = body.username;
-            info.mobile = body.mobile;
-            info.email = body.email;
-            res.status(config.HTTP_CODES.OK).send(info);
-          }
-      });
+      res.status(config.HTTP_CODES.OK).send(body[0]);
     }
   });
 }
