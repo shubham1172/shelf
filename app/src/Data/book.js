@@ -251,7 +251,7 @@ function getBooks(req, res){
     "type": "select",
     "args": {
       "table": "book",
-      "columns": ["*"],
+      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price"],
       "where": {
           "college_id": req.session.auth.college_id,
           "id": {
