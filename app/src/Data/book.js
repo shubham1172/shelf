@@ -207,7 +207,7 @@ function getBook(req, res){
     var query = {
       "type": "select",
       "args": {
-        "table": "book",
+        "table": "bookinfo",
         "columns": ["*"],
         "where": {"id": req.query.id, "college_id": req.session.auth.college_id}
       }
@@ -250,8 +250,8 @@ function getBooks(req, res){
   var query = {
     "type": "select",
     "args": {
-      "table": "book",
-      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price", "time"],
+      "table": "bookinfo",
+      "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price", "time"],
       "where": {
           "college_id": req.session.auth.college_id,
           "id": {
@@ -333,8 +333,8 @@ function getUploaded(req, res){
   var query = {
     "type": "select",
     "args": {
-      "table": "book",
-      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price", "time"],
+      "table": "bookinfo",
+      "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price", "time"],
       "where": {
           "user_id": req.session.auth.id
         },
@@ -371,8 +371,8 @@ function search(req, res){
     var query = {
         "type": "select",
         "args": {
-          "table": "book",
-          "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price"],
+          "table": "bookinfo",
+          "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price"],
           "limit": 10,
           "where": {
           	"$or": [
