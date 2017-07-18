@@ -94,6 +94,17 @@ router.get('/get-photos', function(req, res){
   book.getPhotos(req, res);
 });
 
+//returns all the books uploaded
+router.get('/get-uploaded', function(req, res){
+  book.getUploaded(req, res);
+});
+
+//edit user mobile
+//query ?new_mobile=xxxxxxxxx
+router.get('/edit-mobile', function(req, res){
+  data.editMobile(req, res);
+});
+
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");

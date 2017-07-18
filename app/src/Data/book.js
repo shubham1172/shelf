@@ -326,4 +326,36 @@ function getPhotos(req, res){
   }
 }
 
-module.exports = {addBook, editBook, getBook, getBooks, getPhotos};
+/**
+* Get a list of books which the user uploaded for sale
+*/
+function getUploaded(req, res){
+  var query = {
+    "type": "select",
+    "args": {
+      "table": "book",
+      "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price"],
+      "where": {
+          "user_id": req.session.auth.id
+        }
+    }
+  }
+  var options = {
+    method: "POST",
+    url: "http://data." + config.DOMAIN + '/v1/query',
+    json: true,
+    headers: {
+      "Authorization": "Bearer " + req.session.auth.token
+    },
+    body: query
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+    }else
+        res.status(config.HTTP_CODES.OK).send(body);
+  });
+}
+
+module.exports = {addBook, editBook, getBook, getBooks, getPhotos, getUploaded};

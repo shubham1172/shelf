@@ -151,7 +151,9 @@
           }
       });
    }else{
-     res.status(config.HTTP_CODES.BAD_REQUEST).send("Invalid parameter. Follow /check-username?val=XXX")
+     res.status(config.HTTP_CODES.BAD_REQUEST).send({
+       code: 02,
+       message: "Parameter error. Read docs for more."});
    }
 }
 
@@ -223,4 +225,44 @@ function getCollegeId(user_id, callback){
     });
 }
 
-module.exports = {createUser, getStreams, getColleges, checkUsername, checkStream, getCollegeId};
+/**
+* Edit user's mobile
+*/
+function editMobile(req, res){
+  if(req.query.new_mobile&&req.query.new_mobile.toString().length==10){
+      var query = {
+      "type": "update",
+      "args": {
+        "table" : {
+          "name": "hasura_auth_user",
+          "schema": "hauthy"
+        },
+        "$set": {"mobile": req.query.new_mobile},
+        "where": {"hasura_id": req.session.auth.id }
+      }
+     }
+     var options = {
+       method: "POST",
+       url: domain + '/v1/query',
+       json: true,
+       headers: {
+         "Authorization": "Bearer " + req.session.auth.token
+       },
+       body: query
+     }
+     request(options, function(error, response, body){
+         if(error){
+           console.log(error);
+           res.status(config.HTTP_CODES.SERVER_ERROR).send(error);
+         }else{
+           res.status(config.HTTP_CODES.OK).send("Updated successfully");
+         }
+     });
+  }else{
+    res.status(config.HTTP_CODES.BAD_REQUEST).send({
+      code: 02,
+      message: "Parameter error. Read docs for more."});
+  }
+}
+
+module.exports = {createUser, getStreams, getColleges, checkUsername, checkStream, getCollegeId, editMobile};
