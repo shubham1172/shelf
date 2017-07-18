@@ -105,6 +105,12 @@ router.get('/edit-mobile', function(req, res){
   data.editMobile(req, res);
 });
 
+//search books
+//query ?q=xxx
+router.get('/search', function(req, res){
+  book.search(req, res);
+});
+
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");

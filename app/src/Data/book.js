@@ -358,4 +358,54 @@ function getUploaded(req, res){
   });
 }
 
-module.exports = {addBook, editBook, getBook, getBooks, getPhotos, getUploaded};
+/**
+* Search books
+* Results limited to 10
+*/
+function search(req, res){
+  if(req.query.q&&req.query.q.length>1){
+    var query = {
+        "type": "select",
+        "args": {
+          "table": "book",
+          "columns": ["id", "user_id", "name", "author", "publisher", "condition_id", "photo_id", "price"],
+          "limit": 10,
+          "where": {
+          	"$or": [
+              {"name": {
+                "$ilike": "%"+req.query.q+"%"
+              }},
+              {"author":{
+                "$ilike": "%"+req.query.q+"%"
+              }},
+              {"publisher":{
+                "$ilike": "%"+req.query.q+"%"
+              }}
+            ]
+           }
+  	    }
+    }
+    var options = {
+      method: "POST",
+      url: "http://data." + config.DOMAIN + '/v1/query',
+      json: true,
+      headers: {
+        "Authorization": "Bearer " + req.session.auth.token
+      },
+      body: query
+    }
+    request(options, function(error, response, body){
+      if(error){
+        console.log(error);
+        res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+      }else
+          res.status(config.HTTP_CODES.OK).send(body);
+    });
+  }else{
+    res.status(config.HTTP_CODES.BAD_REQUEST).send({
+      code: 02,
+      message: "Parameter error. Read docs for more."});
+  }
+}
+
+module.exports = {addBook, editBook, getBook, getBooks, getPhotos, getUploaded, search};
