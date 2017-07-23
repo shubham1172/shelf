@@ -81,13 +81,13 @@ var request = require("request");
 function checkParamsBook(info, caller){
   if((caller==1)||(info.name&&info.author&&info.publisher&&info.condition_id&&
       info.price&&info.year&&info.stream_id&&info.memo)){ //caller1->EditBook call
-        if(info.name&&(info.name.length>30||info.name.length<5)){
+        if(info.name&&(info.name.length>30||info.name.length<3)){
           console.log("Name error");
           return false;
-        }if(info.author&&(info.author.length>30||info.author.length<5)){
+        }if(info.author&&(info.author.length>30||info.author.length<3)){
           console.log("Author error");
           return false;
-        }if(info.publisher&&(info.publisher.length>30||info.publisher.length<5)){
+        }if(info.publisher&&(info.publisher.length>30||info.publisher.length<3)){
           console.log("Publisher error");
           return false;
         }if(info.condition_id&&(info.condition_id<1||info.condition_id>5)){
@@ -100,7 +100,7 @@ function checkParamsBook(info, caller){
         if(info.year&&(info.year<1990||info.year>year)){
           console.log("Year error");
           return false;
-        }if(info.memo&&(info.memo.length<5||info.memo.length>100)){
+        }if(info.memo&&(info.memo.length<3||info.memo.length>210)){
           console.log("Memo error");
           return false;
         }if(info.available&&typeof(info.available)!=="boolean"){
