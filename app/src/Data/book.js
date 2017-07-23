@@ -412,4 +412,46 @@ function search(req, res){
   }
 }
 
-module.exports = {addBook, editBook, getBook, getBooks, getPhotos, getUploaded, search};
+/**
+* Changes the status of a book under available column
+* requires id
+*/
+function changeStatus(req, res, status){
+  if(req.query.id){
+    var query = {
+        "type": "update",
+        "args": {
+          "table": "book",
+          "$set": {'available', status},
+          "where": {
+          	"$and": [
+              {"id": req.query.id},
+              {"user_id": req.session.auth.id}
+            ]
+           }
+  	    }
+    }
+    var options = {
+      method: "POST",
+      url: "http://data." + config.DOMAIN + '/v1/query',
+      json: true,
+      headers: {
+        "Authorization": "Bearer " + req.session.auth.token
+      },
+      body: query
+    }
+    request(options, function(error, response, body){
+      if(error){
+        console.log(error);
+        res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
+      }else
+          res.status(config.HTTP_CODES.OK).send(body);
+    });
+  }else{
+    res.status(config.HTTP_CODES.BAD_REQUEST).send({
+      code: 02,
+      message: "Parameter error. Read docs for more."});
+  }
+}
+
+module.exports = {addBook, editBook, getBook, getBooks, getPhotos, getUploaded, search, changeStatus};
