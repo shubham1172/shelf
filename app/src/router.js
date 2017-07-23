@@ -111,6 +111,18 @@ router.get('/search', function(req, res){
   book.search(req, res);
 });
 
+//remove book
+//query ?id=xxx
+router.get('/remove-book', function(req, res){
+  book.changeStatus(req, res, false);
+});
+
+//add book back if removed
+//query ?id=xxx
+router.get('/add-removed-book', function(req, res){
+  book.changeStatus(req, res, true);
+});
+
 //Default routing
 router.get('/*', function(req, res){
   res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");
