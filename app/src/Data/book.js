@@ -422,7 +422,7 @@ function changeStatus(req, res, status){
         "type": "update",
         "args": {
           "table": "book",
-          "$set": {'available', status},
+          "$set": {'available': status},
           "where": {
           	"$and": [
               {"id": req.query.id},
