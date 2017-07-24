@@ -77,5 +77,5 @@ body{
     height:100%;
     position:fixed;
     z-index:9999;
-    background:url("http://localhost:8080/img/loading.gif") no-repeat center center;
+    background:url("http://shubham1172.hasura.me/img/loading.gif") no-repeat center center;
 }

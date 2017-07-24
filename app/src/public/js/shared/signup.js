@@ -58,7 +58,7 @@ passCheck = false;
                   }
               }
       }
-      streamReq.open('GET','http://localhost:8080/get-streams',true);
+      streamReq.open('GET','http://shubham1172.hasura.me/get-streams',true);
       streamReq.send(null);
 
 //XHR for getting colleges - returns college name and ID
@@ -88,7 +88,7 @@ passCheck = false;
                   }
               }
       }
-      collegeReq.open('GET','http://localhost:8080/get-colleges',true);
+      collegeReq.open('GET','http://shubham1172.hasura.me/get-colleges',true);
       collegeReq.send(null);
 
 //Handling username-entry 
@@ -117,7 +117,7 @@ passCheck = false;
               }
           }
          username = $("#username").val();
-         userReq.open('GET','http://localhost:8080/check-username?val='+username,true);
+         userReq.open('GET','http://shubham1172.hasura.me/check-username?val='+username,true);
          userReq.send(null);
           }
 
@@ -199,7 +199,7 @@ function isEmail(testEmail) {
                           if(signup.status === 200||signup.status === 304){
 
                               $("#signup-box").html("You have been signed up! :)<br> Check your mail to activate your account.\
-                                                      <br> Then head <a href='http://localhost:8080/'>here</a> to login.");
+                                                      <br> Then head <a href='http://shubham1172.hasura.me/'>here</a> to login.");
 
                               $("#signup-box").append("<br><br><br><h2 style='color:blue'>Its free.</h2>\
                                                        <h2 style='color:yellow'>Its Open Sourced.</h2>\
@@ -209,7 +209,7 @@ function isEmail(testEmail) {
                         }
                       }
                   } 
-                      signup.open('POST', 'http://localhost:8080/register', true);
+                      signup.open('POST', 'http://shubham1172.hasura.me/register', true);
                       signup.setRequestHeader('Content-Type', 'application/json');
                       signup.send(JSON.stringify({name:name,username:username,year:year,email:email,stream_id:streamId[branch],college_id:collegeId[university],mobile:contact, password: password}));
                   }

@@ -13,7 +13,7 @@ $(document).ready(function(){
           }
         }
       }
-      request.open('POST','http://localhost:8080/test-file',true);
+      request.open('POST','http://shubham1172.hasura.me/test-file',true);
       request.setRequestHeader('Content-Type', 'application/json');
       request.send(JSON.stringify({photo: event.target.result}));
     };
