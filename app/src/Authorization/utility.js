@@ -7,6 +7,37 @@ var config = require('./../config.js');
 var domain = "http://data." + config.DOMAIN;
 var request = require('request');
 
+
+//collects user information from database
+function getInfo(id, token, callback){
+  var query = {
+    "type": "select",
+    "args":{
+        "table": "userinfo",
+        "columns": ["id", "name", "year", "stream", "college"],
+        "where": {"id": id}
+    }
+  }
+  var options = {
+    method: 'POST',
+    url: domain+'/v1/query',
+    headers: {
+      'Authorization': 'Bearer '+token,
+      'Content-Type': 'application/json'
+    },
+    json: true,
+    body: query
+  }
+  request(options, function(error, response, body){
+    if(error){
+      console.log(error);
+      callback("Error");
+    }else{
+      callback(body[0]);
+    }
+  });
+}
+
 //Checks if user holds an account in our database
 function checkEligible(id, token, callback){
     var query = {
