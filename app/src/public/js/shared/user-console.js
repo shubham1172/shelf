@@ -83,7 +83,7 @@ $(document).ready(function(){
                             }
                         }
                     }
-                    photos.open('GET','http://shubham1172.hasura.me/get-photos?id='+photoid,true);
+                    photos.open('GET','http://localhost:8080/get-photos?id='+photoid,true);
                     photos.send(null);
 
                 }else{
@@ -92,7 +92,7 @@ $(document).ready(function(){
             }
         }
         console.log(bookId);
-        bookReq.open('GET','http://shubham1172.hasura.me/get-book?id='+bookId,true);
+        bookReq.open('GET','http://localhost:8080/get-book?id='+bookId,true);
         bookReq.send(null);
      });
         var collection = document.getElementsByClassName('card-image');
@@ -117,7 +117,7 @@ function appendPhotos(collection, it){
                     }
             }
     }
-    photo.open('GET','http://shubham1172.hasura.me/get-photos?id='+collection[it].childNodes[1].innerHTML,true);
+    photo.open('GET','http://localhost:8080/get-photos?id='+collection[it].childNodes[1].innerHTML,true);
     photo.send(null);
 }
 

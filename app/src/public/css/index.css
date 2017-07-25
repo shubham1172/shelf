@@ -56,5 +56,5 @@ body{
     margin: auto;
     position:absolute;
     z-index:9999;
-    background:url("http://shubham1172.hasura.me/img/loading.gif") no-repeat center center;
+    background:url("http://localhost:8080/img/loading.gif") no-repeat center center;
 }

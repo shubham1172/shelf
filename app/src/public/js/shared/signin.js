@@ -42,7 +42,7 @@ $(document).ready(function(){
               }
           }
          username = $("#username").val();
-         userReq.open('GET','http://shubham1172.hasura.me/check-username?val='+username,true);
+         userReq.open('GET','http://localhost:8080/check-username?val='+username,true);
          userReq.send(null);
           }
 });
@@ -55,7 +55,7 @@ $(document).ready(function(){
             if(login.readystate = XMLHttpRequest.DONE){
                 if(login.status === 200){
                     //console.log(login.responseText);
-                    window.location.href = "http://shubham1172.hasura.me/user-console.html";
+                    window.location.href = "http://localhost:8080/user-console.html";
                 }else if(login.status === 404){
                     $("#contents").html("Invalid credentials");
 
@@ -66,7 +66,7 @@ $(document).ready(function(){
         }
         var username = $("#username").val();
         var password = $("#password").val();
-        login.open('POST', 'http://shubham1172.hasura.me/login', true);
+        login.open('POST', 'http://localhost:8080/login', true);
         login.setRequestHeader('Content-Type', 'application/json');
         login.send(JSON.stringify({username:username,password:password}));
     });
