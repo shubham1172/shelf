@@ -1,0 +1,19 @@
+{
+  "name": "shelf",
+  "version": "1.0.0",
+  "description": "shubham1172's app",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "semicolon labs",
+  "dependencies": {
+    "express": "^4.14.0",
+    "path": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "request": "*",
+    "express-session": "*",
+    "crypto": "*"
+  }
+}

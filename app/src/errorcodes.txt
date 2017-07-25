@@ -1,0 +1,7 @@
+SHELF API error codes:
+
+01 - Unauthorized access
+02 - Parameter error
+03 - Missing details in database
+04 - Invalid credentials
+05 - Miscellaneous
