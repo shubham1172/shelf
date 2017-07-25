@@ -238,7 +238,7 @@ function editMobile(req, res){
           "schema": "hauthy"
         },
         "$set": {"mobile": req.query.new_mobile},
-        "where": {"hasura_id": req.session.auth.id }
+        "where": {"id": req.session.auth.id }
       }
      }
      var options = {
@@ -246,7 +246,7 @@ function editMobile(req, res){
        url: domain + '/v1/query',
        json: true,
        headers: {
-         "Authorization": "Bearer " + req.session.auth.token
+         "Authorization": "Bearer " + admin.getToken()
        },
        body: query
      }

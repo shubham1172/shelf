@@ -136,7 +136,6 @@ $(document).ready(function(){
         iterate(collection);
 },500);
 
-
 function iterate(collection){
     if(curr<collection.length)
         appendPhotos(collection, curr);
