@@ -16,20 +16,24 @@ document.onreadystatechange = function (){
 }
 $(document).ready(function(){
   $("#sell-tab").on("click",function(){
+       $("#search-tab").fadeTo('fast',0);
       $("#sell-tab").css("color","green");
       $("#orders-tab").css("color","black");
       $("#primary-info-tab").css("color","black");
       $("#primary-info").css("display","none");
       $("#orders").css("display","none");
+      $("#search-books").css("display","none");
       $("#sell").css("display","inline");
   });
 
   $("#primary-info-tab").on("click",function(){
+      $("#search-tab").fadeTo('fast',0);
       $("#primary-info-tab").css("color","green");
       $("#orders-tab").css("color","black");
       $("#sell-tab").css("color","black");
       $("#orders").css("display","none");
       $("#sell").css("display","none");
+      $("#search-books").css("display","none");
       $("#primary-info").css("display","inline");
   });
 
@@ -39,7 +43,21 @@ $(document).ready(function(){
       $("#primary-info-tab").css("color","black");
       $("#sell").css("display","none");
       $("#primary-info").css("display","none");
+      $("#search-tab").css("color","black");
+      $("#search-books").css("display","none");
       $("#orders").css("display","inline");
+      $("#search-tab").fadeTo('fast',100);
+  });
+
+   $("#search-tab").on("click",function(){
+      $("#search-tab").css("color","green");
+      $("#sell-tab").css("color","black");
+      $("#primary-info-tab").css("color","black");
+      $("#orders-tab").css("color","black");
+      $("#sell").css("display","none");
+      $("#orders").css("display","none");
+      $("#primary-info").css("display","none");
+      $("#search-books").css("display","inline");
   });
 
     $('.tooltipped').tooltip({delay: 10});
@@ -147,7 +165,6 @@ function appendPhotos(collection, it){
         if(photo.readyState = XMLHttpRequest.DONE){
                     if(photo.status===200){
                         var photoData = JSON.parse(photo.responseText);
-                        console.log(photoData);
                         collection[it].childNodes[3].innerHTML = '<img src='+photoData.image_1+' height="100%" width="100%">';
                         curr++;
                         iterate(collection);

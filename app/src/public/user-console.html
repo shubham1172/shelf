@@ -26,7 +26,12 @@
     </div>
         <span id = "contents" ng-controller="userConsole">
         <i class="material-icons" style="color: #424242; float: left; font-size: 64px; padding-top: 29px; padding-left: 30px;">book</i>
-        <p id="index-header"> SHELF  </p> for <span id="university">{{info.college}}</span> <br>
+        <p id="index-header"> SHELF
+        </p> for <span id="university">{{info.college}}</span>
+        <br>
+        <div class="input-field" id="search-tab">
+                <input type="text" id="search-box" class="autocomplete book-query" placeholder="Search">
+            </div>
             <table id="tabs">
                 <tr id="orders-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Explore">public</i></td></tr>
                 <tr id="primary-info-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Profile">person_outline</i></td></tr>
@@ -153,6 +158,28 @@
                 </div>
             
         </div>
+        
+        <div id="search-books" ng-controller="searchBook">
+            <div class="card medium book" ng-repeat="book in books">
+                    <div class="card-image">
+                        <div class="photo_id">{{book.photo_id}}</div> 
+                        <div class="photo"></div>
+                    </div>
+
+                    <div class="card-content">
+                        <div><span class="book-title">{{book.name}}</span><br>
+                        By {{book.author}}<br></div><br>
+                        <div class="book-date">Uploaded on {{book.time|date:'longDate'}}</div>
+                    </div>
+
+                    <div class="card-action">
+                        <div class="price">{{book.price | currency:"₹":0}}</div>
+                        <div class="book-condition">{{book.condition}}</div><br>
+                    </div>
+                    <div class="bookId">{{book.id}}</div>
+                </div>
+                
+        </div>
     <div id="footer-user"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
     Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
     <div id="img1-base64"></div>
@@ -165,5 +192,6 @@
     <!-- Controller -->
     <script src="http://localhost:8080/js/controllers/userConsole.js"></script>
     <script src="http://localhost:8080/js/controllers/getBooks.js"></script>
+    <script src="http://localhost:8080/js/controllers/searchController.js"></script>
 </body>
 </html>

@@ -40,7 +40,7 @@
   width: 100px;
 }
 
-#orders{
+#orders,#search-books{
     margin: 30 0 30 0;
     padding-bottom: 100;
     padding-left: 100;
@@ -65,7 +65,7 @@
     cursor: hand;
 }
 
-#sell,#primary-info{
+#sell,#primary-info,#search-books{
   display:none;
   
 }
@@ -216,3 +216,18 @@ input[type="file"] {
 #mobile-edit{
   width: 120px;
 }
+
+#search-box{
+  width: 400px;
+  height: 50;
+  background: white; 
+  border: none;
+  outline-color: white;
+  left: 0;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  font-size: 16px;
+  padding: 0 5 0 20;
+}
+
