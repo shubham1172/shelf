@@ -1,16 +1,16 @@
-#primary-info{
+#primary-info-top{
     width: 500px;
-    height: 365px;
-    padding: 0% 5% 0% 5%;
+    height: 380px;
+    padding: 1% 5% 1% 5%;
     background: #ffffff;
-    position: absolute;
-    top:50;
+    /* position: absolute;  */
+    /* top:50;
     bottom: 0;
     left: 50;
-    right: 0;
+    right: 0;  */
     margin: auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    float: right;
+    /* float: right; */
 }
 
 .p-menu{
@@ -193,7 +193,7 @@ input[type="file"] {
 }
 
 .modal{
-  width: 75%;
+  width: 50%;
 }
 
 #book-photos-modal{
@@ -218,16 +218,65 @@ input[type="file"] {
 }
 
 #search-box{
-  width: 400px;
+  width: 900px;
   height: 50;
   background: white; 
   border: none;
   outline-color: white;
-  left: 0;
+  left: 200;
   right: 0;
+  top: -80;
   margin: auto;
   position: absolute;
   font-size: 16px;
   padding: 0 5 0 20;
 }
 
+#logout{
+  position:absolute;
+  top:55;
+  right:50;
+  font-weight: lighter;
+}
+
+#logout:hover{
+  cursor: hand;
+  color: red;
+}
+
+#primary-info-bottom{
+    width: 900px;
+    height: 365px;
+    padding: 1% 5% 1% 5%;
+    background: #ffffff;
+    /* position: relative; */
+    /* top:100;  
+    bottom: 0;
+    left: 50;
+    right: 0; */
+    margin: auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    margin-bottom: 100;
+}
+
+#orders-table{
+  border: 1px solid black;
+}
+
+#book-id{
+  display: none;
+}
+
+.remove-book:hover{
+  cursor: hand;
+  color: crimson;
+}
+
+.add-removed-book{
+  display: none;
+}
+
+.add-removed-book:hover{
+  cursor: hand;
+  color: green;
+}

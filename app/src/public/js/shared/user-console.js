@@ -49,15 +49,18 @@ $(document).ready(function(){
       $("#search-tab").fadeTo('fast',100);
   });
 
-   $("#search-tab").on("click",function(){
-      $("#search-tab").css("color","green");
-      $("#sell-tab").css("color","black");
-      $("#primary-info-tab").css("color","black");
-      $("#orders-tab").css("color","black");
-      $("#sell").css("display","none");
-      $("#orders").css("display","none");
-      $("#primary-info").css("display","none");
-      $("#search-books").css("display","inline");
+   $("#search-tab").on("keyup",function(e){
+       if(e.which == 13){
+            $("#search-tab").css("color","green");
+            $("#sell-tab").css("color","black");
+            $("#primary-info-tab").css("color","black");
+            $("#orders-tab").css("color","black");
+            $("#sell").css("display","none");
+            $("#orders").css("display","none");
+            $("#primary-info").css("display","none");
+            $("#search-books").css("display","inline");
+       }
+      
   });
 
     $('.tooltipped').tooltip({delay: 10});
@@ -99,8 +102,22 @@ $(document).ready(function(){
     });
 
    
-    
-     
+// XHR for logging out
+$('#logout').click(function(){
+    var logout = new XMLHttpRequest();
+    logout.onload = function(){
+        if(logout.readyState = XMLHttpRequest.DONE){
+            if(logout.status === 200){
+                window.location.href = "http://localhost:8080/logout.html";
+            }else{
+                console.log(logout.responseText);
+            }
+        }
+    }
+    logout.open('GET','http://localhost:8080/logout',true);
+    logout.send(null);
+});
+  
 /** Contributed by Shubham Sharma & Amey Parundekar **/
     var curr = 0; //iterator index starting at 0
 

@@ -27,17 +27,20 @@
         <span id = "contents" ng-controller="userConsole">
         <i class="material-icons" style="color: #424242; float: left; font-size: 64px; padding-top: 29px; padding-left: 30px;">book</i>
         <p id="index-header"> SHELF
+        <div id="logout">Log Out</div>
         </p> for <span id="university">{{info.college}}</span>
         <br>
         <div class="input-field" id="search-tab">
                 <input type="text" id="search-box" class="autocomplete book-query" placeholder="Search">
-            </div>
+        </div>
+        
             <table id="tabs">
                 <tr id="orders-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Explore">public</i></td></tr>
                 <tr id="primary-info-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Profile">person_outline</i></td></tr>
                 <tr id="sell-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Sell">note_add</i></td></tr>
             </table>
             <div id="primary-info">
+                <div id="primary-info-top">
                 <p><h5 style="font-weight: bold">Personal Information</h5></p>
                 <p> Name:<span class="p-menu">{{info.name}}</span></p>
                 <p> Email:<span class="p-menu">{{info.email}}</span></p>
@@ -47,6 +50,27 @@
                 <p>College:<span class="p-menu">{{info.college}}</span></p>
                 <p>Stream:<span class="p-menu">{{info.stream}}</span></p>
                 <p>Year:<span class="p-menu">{{info.year}}</span><br></p>
+                </div><br>
+                <div id="primary-info-bottom" ng-controller="getUploaded">
+                    <h5>Your Orders</h5>
+                    <table id="orders-table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Date Uploaded</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+
+                        <tr ng-repeat="upload in uploads">
+                            <td>{{upload.name}}</td>
+                            <td>{{upload.time|date:'longDate'}}</td>
+                            <td class="book-action" id={{upload.id}}>
+                                <div class="remove-book">{{custom.remove}}</div>
+                                <div class="add-removed-book">{{custom.add}}</div>
+                            </td>
+                            <td id="edit-book">{{custom.edit}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>  
 
             <div id="sell" autocomplete="off">
@@ -178,7 +202,6 @@
                     </div>
                     <div class="bookId">{{book.id}}</div>
                 </div>
-                
         </div>
     <div id="footer-user"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
     Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
@@ -193,5 +216,6 @@
     <script src="http://localhost:8080/js/controllers/userConsole.js"></script>
     <script src="http://localhost:8080/js/controllers/getBooks.js"></script>
     <script src="http://localhost:8080/js/controllers/searchController.js"></script>
+    <script src="http://localhost:8080/js/controllers/getUploaded.js"></script>
 </body>
 </html>
