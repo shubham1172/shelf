@@ -125,7 +125,7 @@ router.get('/add-removed-book', function(req, res){
 
 //Default routing
 router.get('/*', function(req, res){
-  res.status(config.HTTP_CODES.OK).send("Welcome to SHELF");
+  res.redirect('/');
 });
 
 module.exports = router;

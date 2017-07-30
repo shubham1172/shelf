@@ -334,7 +334,7 @@ function getUploaded(req, res){
     "type": "select",
     "args": {
       "table": "bookinfo",
-      "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price", "time"],
+      "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price", "time", "available"],
       "where": {
           "user_id": req.session.auth.id
         },
@@ -372,7 +372,7 @@ function search(req, res){
         "type": "select",
         "args": {
           "table": "bookinfo",
-          "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price"],
+          "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price", "time"],
           "limit": 10,
           "where": {
           	"$or": [

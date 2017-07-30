@@ -17,13 +17,17 @@ var admin = require('./Authorization/admin.js');
  */
  function checkAuth(req, res, next){
     if(req.session.auth || config.PERMITTED_URLS.indexOf(req.path)>-1){
-      if(req.session.auth&&req.session.auth.eligible|| config.PERMITTED_URLS.indexOf(req.path)>-1)
-        next();
+      if(req.session.auth&&req.session.auth.eligible||config.PERMITTED_URLS.indexOf(req.path)>-1){
+          if(req.session.auth&&req.path=='/')
+            res.redirect('/user-console.html');
+          else
+            next();
+      }
       else
         res.status(config.HTTP_CODES.FORBIDDEN).send({code: 03, message: "Fill your details to continue"});
     }
     else{
-        res.status(config.HTTP_CODES.FORBIDDEN).send({code: 01, message: "Unauthorized access. Login to continue"});
+        res.redirect('/');
     }
  }
 
@@ -36,12 +40,12 @@ var admin = require('./Authorization/admin.js');
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json({limit: '5mb'}));
-app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
   secret: 'silicon_valley',
   cookie: {maxAge: 1000*60*60}
 }));
 app.use(checkAuth);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', router);
 
 //START APP
