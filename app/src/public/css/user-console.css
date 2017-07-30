@@ -272,11 +272,15 @@ input[type="file"] {
   color: crimson;
 }
 
-.add-removed-book{
-  display: none;
-}
-
 .add-removed-book:hover{
   cursor: hand;
   color: green;
+}
+
+.available{
+  display: none;
+}
+
+#book-edit-modal{
+  padding: 2% 5% 2% 5%;
 }

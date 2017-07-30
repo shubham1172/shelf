@@ -13,6 +13,16 @@ app.controller('getUploaded', function($scope, $http) {
     }); 
 
     var i = setTimeout(function(){
+
+        $('.book-action').each(function(){
+            var This = $(this);
+            if(This.children('.available').html()==='true'){
+                console.log(This.children('.available').html());
+                This.children('.add-removed-book').css('display','none');
+            }else{
+                This.children('.remove-book').css('display','none');
+            }
+        });
         //XHR for removing book
         $('.remove-book').on('click',function(){
             var bookId = $(this).parent().attr('id');
@@ -23,23 +33,6 @@ app.controller('getUploaded', function($scope, $http) {
                     if(remove.status === 200||remove.status===304){
                         This.css('display','none');
                         This.next().css('display','inline');
-                        $('.add-removed-book').on('click',function(){
-                                var This = $(this);
-                                var addBook = new XMLHttpRequest();
-                                addBook.onload = function(){
-                                    if(addBook.readyState = XMLHttpRequest.DONE){
-                                        if(addBook.status === 200){
-                                           This.css('display','none');
-                                           This.prev().css('display','block');
-                                        }else{
-                                            console.log(addBook.responseText);
-                                        }
-                                    }
-                                }
-                                addBook.open('GET','http://localhost:8080/add-removed-book?id='+bookId,true);
-                                addBook.send(null);
-
-                        });
                     }else{
                         console.log(remove.responseText);
                     }
@@ -47,6 +40,24 @@ app.controller('getUploaded', function($scope, $http) {
             }
             remove.open('GET','http://localhost:8080/remove-book?id='+bookId,true);
             remove.send(null);
+        });
+
+        $('.add-removed-book').on('click',function(){
+            var This = $(this);
+            var bookId = $(this).parent().attr('id');
+            var addBook = new XMLHttpRequest();
+            addBook.onload = function(){
+                if(addBook.readyState = XMLHttpRequest.DONE){
+                    if(addBook.status === 200){
+                        This.css('display','none');
+                        This.prev().css('display','block');
+                    }else{
+                        console.log(addBook.responseText);
+                    }
+                }
+            }
+            addBook.open('GET','http://localhost:8080/add-removed-book?id='+bookId,true);
+            addBook.send(null);
         });
     },500);
 });

@@ -64,12 +64,39 @@
                             <td>{{upload.name}}</td>
                             <td>{{upload.time|date:'longDate'}}</td>
                             <td class="book-action" id={{upload.id}}>
+                                <div class="available">{{upload.available}}</div>
                                 <div class="remove-book">{{custom.remove}}</div>
                                 <div class="add-removed-book">{{custom.add}}</div>
                             </td>
-                            <td id="edit-book">{{custom.edit}}</td>
+                            <td class="edit-book">{{custom.edit}}</td>
                         </tr>
                     </table>
+                    <div id="book-edit-modal" class="modal">
+                    <div class="modal-content">
+                        <h3>Edit Book</h3>
+                        <div id="left-sell">
+                        <div class="input-field book-input">
+                        <input id="book-name-edit" type="text" class="validate" placeholder="Book">
+                        </div>
+                        <div class="input-field book-input">
+                        <input id="author-edit" type="text" class="validate" placeholder="Author">
+                        </div>
+                        <div class="input-field book-input">
+                        <input id="publisher-edit" type="text" class="validate" placeholder="Publisher">
+                        </div>
+                        <div class="input-field book-input2">
+                        <input id="price-edit" type="number" class="validate" placeholder="Price">
+                        </div>
+                        <div class="input-field book-input2">
+                        <input id="year-edit" type="number" class="validate" placeholder="Year">
+                        </div><br>
+                        <div class="input-field book-input">
+                        <textarea id="memo-edit" class="materialize-textarea" maxlength="210" data-length="210" placeholder="Memo"></textarea>
+                        </div>          
+                        </div>
+                    </div>
+                    <div id="edit-book-btn" style="bottom:0;float:right"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="edit-book" style="background:blue">EDIT BOOK</button></div>
+                </div>
                 </div>
             </div>  
 

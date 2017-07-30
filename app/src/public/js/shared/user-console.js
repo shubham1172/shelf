@@ -117,7 +117,10 @@ $('#logout').click(function(){
     logout.open('GET','http://localhost:8080/logout',true);
     logout.send(null);
 });
-  
+
+
+
+
 /** Contributed by Shubham Sharma & Amey Parundekar **/
     var curr = 0; //iterator index starting at 0
 
@@ -169,6 +172,58 @@ $('#logout').click(function(){
      });
         var collection = document.getElementsByClassName('card-image');
         iterate(collection);
+
+
+        //Edit Book
+        $('.edit-book').on('click',function(){
+            $('#book-edit-modal').modal('open');
+            var bookId = $(this).prev().attr('id');
+            var bookReq = new XMLHttpRequest();
+            bookReq.onload = function(){
+                if(bookReq.readyState = XMLHttpRequest.DONE){
+                    if(bookReq.status === 200){
+                        var data = JSON.parse(bookReq.responseText);
+                        $('#book-name-edit').val(data.name);
+                        $('#author-edit').val(data.author);
+                        $('#publisher-edit').val(data.publisher);
+                        $('#price-edit').val(data.price);
+                        $('#year-edit').val(data.year);
+                        $('#memo-edit').val(data.memo);
+                    }else{
+                        console.log(bookReq.responseText);
+                    }
+                }
+            }
+            bookReq.open('GET','http://localhost:8080/get-book?id='+bookId,true);
+            bookReq.send(null);
+
+            $("#edit-book").on("click",function(){
+                var postBook = new XMLHttpRequest();
+                postBook.onload = function(){
+                    if(postBook.readyState = XMLHttpRequest.DONE){
+                        if(postBook.status === 200){
+                            $("#book-edit-modal").html("Book Edited successfully!");
+                            // var i = setTimeout(function(){
+                            //     window.location.href = "http://localhost:8080/user-console.html";
+                            // });
+                        }else{
+                            $("#book-edit-modal").html(postBook.responseText);
+                        }
+                    }
+                }
+                var name = $("#book-name-edit").val().trim();
+                var author = $("#author-edit").val().trim();
+                var publisher = $("#publisher-edit").val().trim();
+                var year = $("#year-edit").val();
+                var price = $("#price-edit").val();
+                var memo = $("#memo-edit").val();
+                postBook.open('POST', 'http://localhost:8080/edit-book', true);
+                postBook.setRequestHeader('Content-Type', 'application/json');
+                var book = {name:name,author:author,publisher:publisher,price:price,year:year,memo:memo};
+            console.log(book);
+                postBook.send(JSON.stringify(book));
+            });
+        });
 },500);
 
 function iterate(collection){
