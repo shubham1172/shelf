@@ -212,7 +212,7 @@ $('#logout').click(function(){
                     if(postBook.readyState = XMLHttpRequest.DONE){
                         if(postBook.status === 200){
                             $("#book-edit-modal").html("Book Edited successfully!");
-                             var i = setTimeout(function(){
+                            var i = setTimeout(function(){
                             window.location.href = "http://localhost:8080/user-console.html#primary-info";
                             location.reload();
                              },100);

@@ -104,7 +104,11 @@ $("#photos-validation-button").on("click",function(){
         postBook.onload = function(){
             if(postBook.readyState = XMLHttpRequest.DONE){
                 if(postBook.status === 200){
-                    $("#sell").html("Book Uploaded successfully!");
+                    $("#sell").html("<h3 style='color:blue'>Book Uploaded successfully!</h3>");
+                    var i = setTimeout(function(){
+                            window.location.href = "http://localhost:8080/user-console.html#primary-info";
+                            location.reload();
+                             },100);
                 }else{
                     $("#sell").html(postBook.responseText);
                 }

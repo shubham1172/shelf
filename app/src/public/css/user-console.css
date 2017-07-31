@@ -43,7 +43,7 @@
 #orders,#search-books{
     margin: 30 0 30 0;
     padding-bottom: 100;
-    padding-left: 100;
+    padding-left: 10;
     position: absolute;
     width: 1300px;
     /*height: 1000px;*/
@@ -248,19 +248,19 @@ input[type="file"] {
     width: 900px;
     height: 365px;
     padding: 1% 5% 1% 5%;
-    background: #ffffff;
+    /* background: #ffffff; */
     /* position: relative; */
     /* top:100;  
     bottom: 0;
     left: 50;
     right: 0; */
     margin: auto;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
     margin-bottom: 100;
 }
 
 #orders-table{
-  border: 1px solid black;
+  border: 1px dashed black;
 }
 
 #book-id{
@@ -283,4 +283,14 @@ input[type="file"] {
 
 #book-edit-modal{
   padding: 2% 5% 2% 5%;
+}
+
+.edit-book:hover{
+  cursor: hand;
+  color: green;
+}
+
+hr{
+  width: 80%;
+  margin-left: 150;
 }
