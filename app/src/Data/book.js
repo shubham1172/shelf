@@ -253,11 +253,11 @@ function getBooks(req, res){
       "table": "bookinfo",
       "columns": ["id", "user", "name", "author", "publisher", "condition", "photo_id", "price", "time"],
       "where": {
-          "college_id": req.session.auth.college_id,
-          "id": {
-            "$gt": 0
-          }
-        },
+        "$and": [
+          {"college_id": req.session.auth.college_id},
+          {"id": {"$gt": 0}},
+          {"available": true}
+        ]},
       "order_by": {
         "column": "time",
         "order": "desc"
