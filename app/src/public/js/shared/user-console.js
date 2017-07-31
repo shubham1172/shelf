@@ -66,6 +66,14 @@ $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 10});
     $('.modal').modal();
    
+    /**
+     * Contributed by Shubham Sharma
+     */
+    console.log(window.location.hash);
+    if(window.location.hash==='#primary-info'){
+        $('#primary-info-tab').click();
+    }
+
     //XHR for edit contact
     $('#edit-contact').click(function(){
         $("#contact").css('display','none');
@@ -189,6 +197,7 @@ $('#logout').click(function(){
                         $('#price-edit').val(data.price);
                         $('#year-edit').val(data.year);
                         $('#memo-edit').val(data.memo);
+                        $('#edit-book').attr('name',data.id);
                     }else{
                         console.log(bookReq.responseText);
                     }
@@ -203,14 +212,16 @@ $('#logout').click(function(){
                     if(postBook.readyState = XMLHttpRequest.DONE){
                         if(postBook.status === 200){
                             $("#book-edit-modal").html("Book Edited successfully!");
-                            // var i = setTimeout(function(){
-                            //     window.location.href = "http://localhost:8080/user-console.html";
-                            // });
+                             var i = setTimeout(function(){
+                            window.location.href = "http://localhost:8080/user-console.html#primary-info";
+                            location.reload();
+                             },100);
                         }else{
                             $("#book-edit-modal").html(postBook.responseText);
                         }
                     }
                 }
+                var bookId = $(this).attr('name');
                 var name = $("#book-name-edit").val().trim();
                 var author = $("#author-edit").val().trim();
                 var publisher = $("#publisher-edit").val().trim();
@@ -219,7 +230,7 @@ $('#logout').click(function(){
                 var memo = $("#memo-edit").val();
                 postBook.open('POST', 'http://localhost:8080/edit-book', true);
                 postBook.setRequestHeader('Content-Type', 'application/json');
-                var book = {name:name,author:author,publisher:publisher,price:price,year:year,memo:memo};
+                var book = {name:name,author:author,publisher:publisher,price:price,year:year,memo:memo,id:bookId};
             console.log(book);
                 postBook.send(JSON.stringify(book));
             });

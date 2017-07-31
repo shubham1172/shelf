@@ -56,11 +56,8 @@ $(document).ready(function(){
                 if(login.status === 200){
                     //console.log(login.responseText);
                     window.location.href = "http://localhost:8080/user-console.html";
-                }else if(login.status === 404){
-                    $("#contents").html("Invalid credentials");
-
                 }else{
-                    console.log(login.responseText);
+                    $("#signin-form").prepend("<span style='color:crimson'>Invalid credentials<span>");
                 }
             }
         }
