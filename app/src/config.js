@@ -10,7 +10,7 @@
  config.PORT_NUMBER = 8080;
  //PERMITTED_URLS for auth
  config.PERMITTED_URLS = ["/", "/css/index.css", "/js/shared/signin.js","/register", "/logout", "/login", "/check-eligible",
-                          "/get-streams", "/get-colleges", "/check-username"];
+                          "/get-streams", "/get-colleges", "/check-username", "/logout.html"];
  //HTTP_CODES used in app
  config.HTTP_CODES = {OK: 200, BAD_REQUEST: 400, FORBIDDEN: 403, SERVER_ERROR: 500};
  //DOMAIN
