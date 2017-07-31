@@ -167,7 +167,7 @@ function editBook(req, res){
         "args": {
           "table": "book",
           "$set": values,
-          "where": {"user-id": req.session.auth.id, "id": req.body.id},
+          "where": {"user_id": req.session.auth.id, "id": req.body.id},
           "returning": ["id"]
         }
       }
@@ -186,7 +186,7 @@ function editBook(req, res){
           res.status(config.HTTP_CODES.SERVER_ERROR).send("Error");
         }else if(body.returning.length==1){
           //return book id
-          res.status(config.HTTP_CODES.OK).send(body.returning[0].id);
+          res.status(config.HTTP_CODES.OK).send(toString(body.returning[0].id));
         }else{
           res.status(config.HTTP_CODES.SERVER_ERROR)("Error");
         }
