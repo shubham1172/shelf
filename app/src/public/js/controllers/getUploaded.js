@@ -5,6 +5,10 @@
 app.controller('getUploaded', function($scope, $http) {
     $http.get("http://localhost:8080/get-uploaded").success(function(response){
         $scope.uploads = response;
+        if(response.length==0){
+          $('#no-books').css('display','block');
+          $("#upload-header").css('display','none');
+        }
         $scope.custom = {
             'remove': 'Remove',
             'edit': 'Edit',
