@@ -67,7 +67,7 @@
 
 #sell,#primary-info,#search-books{
   display:none;
-  
+
 }
 
 #tabs{
@@ -94,14 +94,14 @@
 }
 
 #contents{
-  overflow:scroll; 
+  overflow:scroll;
   height: 100px;
 }
 
 #footer-user{
   position: fixed;
   right: 0;
-  bottom: 0;  
+  bottom: 0;
   left: 0;
   padding: 1rem;
   background-color: #313235;
@@ -221,7 +221,7 @@ input[type="file"] {
 #search-box{
   width: 900px;
   height: 50;
-  background: white; 
+  background: white;
   border: none;
   outline-color: white;
   left: 200;
@@ -251,7 +251,7 @@ input[type="file"] {
     padding: 1% 5% 1% 5%;
     /* background: #ffffff; */
     /* position: relative; */
-    /* top:100;  
+    /* top:100;
     bottom: 0;
     left: 50;
     right: 0; */
@@ -294,4 +294,8 @@ input[type="file"] {
 hr{
   width: 80%;
   margin-left: 150;
+}
+
+#no-books{
+  display: none;
 }

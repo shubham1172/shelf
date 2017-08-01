@@ -33,7 +33,7 @@
         <div class="input-field" id="search-tab">
                 <input type="text" id="search-box" class="autocomplete book-query" placeholder="Search">
         </div>
-        
+
             <table id="tabs">
                 <tr id="orders-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Explore">public</i></td></tr>
                 <tr id="primary-info-tab"><td><i class="material-icons tooltipped" style="font-size:32px" data-position="right" data-delay="10" data-tooltip="Profile">person_outline</i></td></tr>
@@ -53,8 +53,9 @@
                 </div><br><hr>
                 <div id="primary-info-bottom" ng-controller="getUploaded">
                     <h5>Your Books</h5>
+                    <div id="no-books">You uploaded no books! Go to the sell section to upload one!</div>
                     <table id="orders-table">
-                        <tr>
+                        <tr id="upload-header">
                             <th>Name</th>
                             <th>Date Uploaded</th>
                             <th colspan="2">Actions</th>
@@ -92,13 +93,13 @@
                         </div><br>
                         <div class="input-field book-input">
                         <textarea id="memo-edit" class="materialize-textarea" maxlength="210" data-length="210" placeholder="Memo"></textarea>
-                        </div>          
+                        </div>
                         </div>
                     </div>
                     <div id="edit-book-btn" style="bottom:0;float:right"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="edit-book" style="background:blue">EDIT BOOK</button></div>
                 </div>
                 </div>
-            </div>  
+            </div>
 
             <div id="sell" autocomplete="off">
                 <div id="left-sell" style="float:left">
@@ -140,13 +141,13 @@
                     <div id="photos">
 
                     <label for="file-upload-1" class="custom-file-upload">
-                        <i class="fa fa-cloud-upload"></i> 
+                        <i class="fa fa-cloud-upload"></i>
                         Front Cover
                     </label>
                     <input id="file-upload-1" type="file" accept="image/*"/>
 
                     <label for="file-upload-2" class="custom-file-upload">
-                        <i class="fa fa-cloud-upload"></i> 
+                        <i class="fa fa-cloud-upload"></i>
                         Back Cover
                     </label>
                     <input id="file-upload-2" type="file" accept="image/*"/>
@@ -154,7 +155,7 @@
                     <img id="output1" width = "150px" height="150px"/>
                     <img id="output2" width = "150px" height="150px"/><br><br>
                     <button id="photos-validation-button">
-                    Validate Photos 
+                    Validate Photos
                     </button>
 
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent signin-button" id="post-book">
@@ -166,7 +167,7 @@
             <div id="orders" ng-controller="getBooks">
                 <div class="card medium book" ng-repeat="book in books">
                     <div class="card-image">
-                        <div class="photo_id">{{book.photo_id}}</div> 
+                        <div class="photo_id">{{book.photo_id}}</div>
                         <div class="photo"></div>
                     </div>
 
@@ -182,38 +183,11 @@
                     </div>
                     <div class="bookId">{{book.id}}</div>
                 </div>
-                
-                <div id="book-modal" class="modal">
-                    <div class="modal-content">
-                     <div id="book-photos-modal">
-                        <img id="book-photo1-modal" height="250" width="220">
-                        <img id="book-photo2-modal" height="250" width="220">
-                    </div>
-                    <span style="color: green; font-weight: bold">Book Information:</span>
-                    <div id="book-title-modal"></div>
-                    <div id="book-author-modal"></div>
-                    <div id="book-publisher-modal"></div>
-                    <div id="book-year-modal"></div>
-                    <div id="book-condition-modal"></div>
-                    <br><br>
-                   <span style="color: green; font-weight: bold"> Uploader Information: </span>
-                    <div id="book-user-modal"></div>
-                    <div id="book-contact-modal"></div>
-                    <div id="book-stream-modal"></div>
-                    <div id="cost"></div>
-                    </div>
-                    <div class="modal-footer">
-                    <div id="book-memo-modal" style="float:left"></div>
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
-                    </div>
-                </div>
-            
         </div>
-        
         <div id="search-books" ng-controller="searchBook">
-            <div class="card medium book" ng-repeat="book in books">
+            <div class="card medium book searchbook" ng-repeat="book in books">
                     <div class="card-image">
-                        <div class="photo_id">{{book.photo_id}}</div> 
+                        <div class="photo_id">{{book.photo_id}}</div>
                         <div class="photo"></div>
                     </div>
 
@@ -230,7 +204,31 @@
                     <div class="bookId">{{book.id}}</div>
                 </div>
         </div>
-    <div id="footer-user"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.
+        <div id="book-modal" class="modal">
+            <div class="modal-content">
+             <div id="book-photos-modal">
+                <img id="book-photo1-modal" height="250" width="220">
+                <img id="book-photo2-modal" height="250" width="220">
+            </div>
+            <span style="color: green; font-weight: bold">Book Information:</span>
+            <div id="book-title-modal"></div>
+            <div id="book-author-modal"></div>
+            <div id="book-publisher-modal"></div>
+            <div id="book-year-modal"></div>
+            <div id="book-condition-modal"></div>
+            <br><br>
+           <span style="color: green; font-weight: bold"> Uploader Information: </span>
+            <div id="book-user-modal"></div>
+            <div id="book-contact-modal"></div>
+            <div id="book-stream-modal"></div>
+            <div id="cost"></div>
+            </div>
+            <div class="modal-footer">
+            <div id="book-memo-modal" style="float:left"></div>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
+            </div>
+        </div>
+    <div id="footer-user"><p id="footer-index-text">Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> in India.<br>
     Powered by <a href="https://www.hasura.io">Hasura</a>.</p>
     <div id="img1-base64"></div>
     <div id="img2-base64"></div>

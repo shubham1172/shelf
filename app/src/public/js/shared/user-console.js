@@ -60,18 +60,20 @@ $(document).ready(function(){
             $("#primary-info").css("display","none");
             $("#search-books").css("display","inline");
        }
-      
+
   });
 
     $('.tooltipped').tooltip({delay: 10});
     $('.modal').modal();
-   
+
     /**
      * Contributed by Shubham Sharma
      */
     console.log(window.location.hash);
     if(window.location.hash==='#primary-info'){
         $('#primary-info-tab').click();
+    }else if(window.location.hash==="#explore"){
+      $('#orders-tab').click();
     }
 
     //XHR for edit contact
@@ -106,10 +108,10 @@ $(document).ready(function(){
             $('#contact-edit').css('display','none');
             $('#contact').css('display','inline');
         });
-        
+
     });
 
-   
+
 // XHR for logging out
 $('#logout').click(function(){
     var logout = new XMLHttpRequest();
@@ -259,4 +261,3 @@ function appendPhotos(collection, it){
 }
 
 });
-

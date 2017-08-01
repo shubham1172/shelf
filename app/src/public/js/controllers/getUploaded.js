@@ -2,15 +2,19 @@
  * @author: Amey Parundekar
  * get-books
  */
-app.controller('getUploaded', function($scope, $http) { 
+app.controller('getUploaded', function($scope, $http) {
     $http.get("http://localhost:8080/get-uploaded").success(function(response){
         $scope.uploads = response;
+        if(response.length==0){
+          $('#no-books').css('display','block');
+          $("#upload-header").css('display','none');
+        }
         $scope.custom = {
             'remove': 'Remove',
             'edit': 'Edit',
             'add': 'Add'
         }
-    }); 
+    });
 
     var i = setTimeout(function(){
 
@@ -33,6 +37,8 @@ app.controller('getUploaded', function($scope, $http) {
                     if(remove.status === 200||remove.status===304){
                         This.css('display','none');
                         This.next().css('display','inline');
+                        window.location.href = "http://localhost:8080/user-console.html#primary-info";
+                        location.reload();
                     }else{
                         console.log(remove.responseText);
                     }
@@ -51,6 +57,8 @@ app.controller('getUploaded', function($scope, $http) {
                     if(addBook.status === 200){
                         This.css('display','none');
                         This.prev().css('display','block');
+                        window.location.href = "http://localhost:8080/user-console.html#primary-info";
+                        location.reload();
                     }else{
                         console.log(addBook.responseText);
                     }
