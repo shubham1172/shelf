@@ -18,8 +18,8 @@
 }
 
 #sell{
-   width: 1050px;
-    height: 65%;
+    width: 70vw;
+    height: 500px;
     padding: 1% 5% 3% 5%;
     background: #ffffff;
     position: absolute;
@@ -63,6 +63,10 @@
 .book:hover{
     box-shadow: 0 6px 12px rgba(0,0,0,0.16), 0 6px 12px rgba(0,0,0,0.23);
     cursor: hand;
+}
+
+#index-header:hover{
+  cursor: hand;
 }
 
 #sell,#primary-info,#search-books{
@@ -110,8 +114,6 @@
   width: 100%;
 }
 
-
-
 input[type="file"] {
     display: none;
 }
@@ -138,6 +140,7 @@ input[type="file"] {
   width: 10px;
   height: 60px;
   font-size: 32px;
+  position: relative;
 }
 
 .price,#cost{
@@ -296,6 +299,6 @@ hr{
   margin-left: 150;
 }
 
-#no-books{
+#no-books,#no-books-explore{
   display: none;
 }

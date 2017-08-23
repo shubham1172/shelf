@@ -9,6 +9,11 @@ app.controller('searchBook', function($scope, $http){
             console.log('pressed enter');
             var query = $('#search-box').val();
             $http.get("http://localhost:8080/search?q="+query).success(function(response){
+            if(response.length==0){
+                $('#no-books-search').css('display','block');
+                }else{
+                    $('#no-books-search').css('display','none');
+                }
             $scope.books = response;
             console.log(response);
             });

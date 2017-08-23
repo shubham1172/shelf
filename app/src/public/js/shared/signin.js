@@ -57,7 +57,7 @@ $(document).ready(function(){
                     //console.log(login.responseText);
                     window.location.href = "http://localhost:8080/user-console.html";
                 }else{
-                    $("#signin-form").prepend("<span style='color:crimson'>Invalid credentials<span>");
+                    $("#signin-header").prepend("<span style='color:crimson'>Invalid credentials<span>");
                 }
             }
         }

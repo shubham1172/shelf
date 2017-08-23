@@ -27,6 +27,11 @@
         <span id = "contents" ng-controller="userConsole">
         <i class="material-icons" style="color: #424242; float: left; font-size: 64px; padding-top: 29px; padding-left: 30px;">book</i>
         <p id="index-header"> SHELF
+            <script>
+                $("#index-header").click(function(){
+                    window.location.href = "http://localhost:8080/";
+                });
+            </script>
         <div id="logout">Log Out</div>
         </p> for <span id="university">{{info.college}}</span>
         <br>
@@ -165,6 +170,7 @@
             </div>
             </div>
             <div id="orders" ng-controller="getBooks">
+                <div id="no-books-explore">No one uploaded books from your college yet! :(</div>
                 <div class="card medium book" ng-repeat="book in books">
                     <div class="card-image">
                         <div class="photo_id">{{book.photo_id}}</div>
@@ -185,6 +191,7 @@
                 </div>
         </div>
         <div id="search-books" ng-controller="searchBook">
+            <div id="no-books-search">No such book was found! :(</div>
             <div class="card medium book searchbook" ng-repeat="book in books">
                     <div class="card-image">
                         <div class="photo_id">{{book.photo_id}}</div>

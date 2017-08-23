@@ -1,7 +1,7 @@
 body{
     background: #f2f2f2;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-     position: relative;
+    position: relative;
 }
 
 #index-header{
@@ -9,6 +9,10 @@ body{
     font-size: 64px;
     padding-top: 48px;
     padding-left: 30px;
+}
+
+#index-header:hover{
+    cursor: hand;
 }
 
 #signin-box{

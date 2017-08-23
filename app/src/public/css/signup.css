@@ -11,9 +11,14 @@ body{
     padding-left: 30px;
 }
 
+
+#signup-header{
+    cursor: hand;
+}
+
 #signup-box{
-    width: 760px;
-    height: 550px;
+    width: 50vw;
+    height: 75vh;
     padding: 5% 5% 5% 5%;
     background: #ffffff;
     position: absolute;
